@@ -1,0 +1,44 @@
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: ceramic-influxdb
+    restart: unless-stopped
+    ports:
+      - '8086:8086'
+    volumes:
+      - D:/data/influxdb_data:/var/lib/influxdb2
+      - D:/data/influxdb_config:/etc/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=admin
+      - DOCKER_INFLUXDB_INIT_PASSWORD=1090119your
+      - DOCKER_INFLUXDB_INIT_ORG=ceramic-workshop
+      - DOCKER_INFLUXDB_INIT_BUCKET=sensor_data
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=ceramic-workshop-token
+      - TZ=Asia/Shanghai
+    networks:
+      - ceramic-network
+
+  backend:
+    build: .
+    container_name: ceramic-backend
+    restart: unless-stopped
+    ports:
+      - '8080:8080'
+    depends_on:
+      - influxdb
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=ceramic-workshop-token
+      - INFLUX_ORG=ceramic-workshop
+      - INFLUX_BUCKET=sensor_data
+      - MOCK_MODE=${MOCK_MODE:-true}
+      - TZ=Asia/Shanghai
+    networks:
+      - ceramic-network
+
+networks:
+  ceramic-network:
