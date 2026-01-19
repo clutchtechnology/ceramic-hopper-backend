@@ -348,26 +348,575 @@ modules:
     total_size: 6
     fields:
       - name: VibrationX
-        display_name: X轴振动幅值
+        display_name: X轴振动
         data_type: Word
         offset: 0
         size: 2
         unit: mm/s
-        scale: 0.01  # 根据实际标定调整
+        scale: 1.0
       - name: VibrationY
-        display_name: Y轴振动幅值
+        display_name: Y轴振动
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: mm/s
+        scale: 1.0
+      - name: VibrationZ
+        display_name: Z轴振动
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: mm/s
+        scale: 1.0
+
+  # ============================================================
+  # 8. 振动加速度模块 (VibrationAcceleration)
+  # ============================================================
+  - name: VibrationAcceleration
+    description: 三轴振动加速度
+    total_size: 6
+    fields:
+      - name: AccX
+        display_name: X轴加速度
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: AccY
+        display_name: Y轴加速度
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: AccZ
+        display_name: Z轴加速度
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: m/s²
+        scale: 0.01
+
+  # ============================================================
+  # 9. 振动速度模块 (VibrationVelocity)
+  # ============================================================
+  - name: VibrationVelocity
+    description: 三轴振动速度
+    total_size: 6
+    fields:
+      - name: VelX
+        display_name: X轴振动速度
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: VelY
+        display_name: Y轴振动速度
         data_type: Word
         offset: 2
         size: 2
         unit: mm/s
         scale: 0.01
-      - name: VibrationZ
-        display_name: Z轴振动幅值
+      - name: VelZ
+        display_name: Z轴振动速度
         data_type: Word
         offset: 4
         size: 2
         unit: mm/s
         scale: 0.01
+
+  # ============================================================
+  # 10. X_DATA 结构模块 (XData)
+  # ============================================================
+  - name: XData
+    description: X轴数据结构
+    total_size: 22
+    fields:
+      - name: CFX
+        display_name: X轴特征频率
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: Hz
+        scale: 0.1
+      - name: KX
+        display_name: X轴K值
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: AVGX
+        display_name: X轴平均加速度
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: RRAX
+        display_name: X轴峰值加速度
+        data_type: Word
+        offset: 6
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: PX
+        display_name: X轴峰值因子
+        data_type: Word
+        offset: 8
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: SKX
+        display_name: X轴峭度
+        data_type: Word
+        offset: 10
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: VOX
+        display_name: X轴振动速度
+        data_type: Word
+        offset: 12
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: VRMSX
+        display_name: X轴振动速度有效值
+        data_type: Word
+        offset: 14
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: DMX
+        display_name: X轴位移
+        data_type: Word
+        offset: 16
+        size: 2
+        unit: μm
+        scale: 0.01
+      - name: SKZ
+        display_name: X轴位移因子
+        data_type: Word
+        offset: 18
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: Y_DATA
+        display_name: Y轴数据结构
+        data_type: Struct
+        offset: 20
+        size: 2
+        unit: ""
+
+  # ============================================================
+  # 11. Y_DATA 结构模块 (YData)
+  # ============================================================
+  - name: YData
+    description: Y轴数据结构
+    total_size: 22
+    fields:
+      - name: CFY
+        display_name: Y轴特征频率
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: Hz
+        scale: 0.1
+      - name: KY
+        display_name: Y轴K值
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: AVGY
+        display_name: Y轴平均加速度
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: RRAY
+        display_name: Y轴峰值加速度
+        data_type: Word
+        offset: 6
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: PY
+        display_name: Y轴峰值因子
+        data_type: Word
+        offset: 8
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: SKY
+        display_name: Y轴峭度
+        data_type: Word
+        offset: 10
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: VOY
+        display_name: Y轴振动速度
+        data_type: Word
+        offset: 12
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: VRMSY
+        display_name: Y轴振动速度有效值
+        data_type: Word
+        offset: 14
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: DMY
+        display_name: Y轴位移
+        data_type: Word
+        offset: 16
+        size: 2
+        unit: μm
+        scale: 0.01
+      - name: SKY
+        display_name: Y轴位移因子
+        data_type: Word
+        offset: 18
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: Z_DATA
+        display_name: Z轴数据结构
+        data_type: Struct
+        offset: 20
+        size: 2
+        unit: ""
+
+  # ============================================================
+  # 12. Z_DATA 结构模块 (ZData)
+  # ============================================================
+  - name: ZData
+    description: Z轴数据结构
+    total_size: 22
+    fields:
+      - name: CFZ
+        display_name: Z轴特征频率
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: Hz
+        scale: 0.1
+      - name: KZ
+        display_name: Z轴K值
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: AVGZ
+        display_name: Z轴平均加速度
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: RRAZ
+        display_name: Z轴峰值加速度
+        data_type: Word
+        offset: 6
+        size: 2
+        unit: m/s²
+        scale: 0.01
+      - name: PZ
+        display_name: Z轴峰值因子
+        data_type: Word
+        offset: 8
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: SKZ
+        display_name: Z轴峭度
+        data_type: Word
+        offset: 10
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: VOZ
+        display_name: Z轴振动速度
+        data_type: Word
+        offset: 12
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: VRMSZ
+        display_name: Z轴振动速度有效值
+        data_type: Word
+        offset: 14
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: DMZ
+        display_name: Z轴位移
+        data_type: Word
+        offset: 16
+        size: 2
+        unit: μm
+        scale: 0.01
+      - name: SKZ
+        display_name: Z轴位移因子
+        data_type: Word
+        offset: 18
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: ERR
+        display_name: 错误状态
+        data_type: Struct
+        offset: 20
+        size: 2
+        unit: ""
+
+  # ============================================================
+  # 13. 错误状态模块 (ErrorData)
+  # ============================================================
+  - name: ErrorData
+    description: 振动传感器错误状态
+    total_size: 12
+    fields:
+      - name: ERRX
+        display_name: X轴错误
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: ERRY
+        display_name: Y轴错误
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: ""
+        scale: 1.0
+      - name: ERRZ
+        display_name: Z轴错误
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: ""
+        scale: 1.0
+
+  # ============================================================
+  # 9. 振动速度模块 (VibrationVelocity)
+  # ============================================================
+  - name: VibrationVelocity
+    description: 三轴振动速度
+    total_size: 6
+    fields:
+      - name: VelX
+        display_name: X轴速度
+        data_type: Word
+        offset: 0
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: VelY
+        display_name: Y轴速度
+        data_type: Word
+        offset: 2
+        size: 2
+        unit: mm/s
+        scale: 0.01
+      - name: VelZ
+        display_name: Z轴速度
+        data_type: Word
+        offset: 4
+        size: 2
+        unit: mm/s
+        scale: 0.01
+
+  # ============================================================
+  # 10. X轴详细数据 (XData)
+  # ============================================================
+  # Offset: 98-119 (22 bytes)
+  - name: XData
+    description: X轴详细振动数据
+    total_size: 22
+    fields:
+      - name: RMS
+        display_name: 有效值
+        data_type: Real
+        offset: 0
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: Peak
+        display_name: 峰值
+        data_type: Real
+        offset: 4
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: PeakPeak
+        display_name: 峰峰值
+        data_type: Real
+        offset: 8
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: Kurtosis
+        display_name: 峭度
+        data_type: Real
+        offset: 12
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: CrestFactor
+        display_name: 波峰因数
+        data_type: Real
+        offset: 16
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: Status
+        display_name: 状态字
+        data_type: Word
+        offset: 20
+        size: 2
+        unit: ""
+        scale: 1.0
+
+  # ============================================================
+  # 11. Y轴详细数据 (YData)
+  # ============================================================
+  - name: YData
+    description: Y轴详细振动数据
+    total_size: 22
+    fields:
+      - name: RMS
+        display_name: 有效值
+        data_type: Real
+        offset: 0
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: Peak
+        display_name: 峰值
+        data_type: Real
+        offset: 4
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: PeakPeak
+        display_name: 峰峰值
+        data_type: Real
+        offset: 8
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: Kurtosis
+        display_name: 峭度
+        data_type: Real
+        offset: 12
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: CrestFactor
+        display_name: 波峰因数
+        data_type: Real
+        offset: 16
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: Status
+        display_name: 状态字
+        data_type: Word
+        offset: 20
+        size: 2
+        unit: ""
+        scale: 1.0
+
+  # ============================================================
+  # 12. Z轴详细数据 (ZData)
+  # ============================================================
+  - name: ZData
+    description: Z轴详细振动数据
+    total_size: 22
+    fields:
+      - name: RMS
+        display_name: 有效值
+        data_type: Real
+        offset: 0
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: Peak
+        display_name: 峰值
+        data_type: Real
+        offset: 4
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: PeakPeak
+        display_name: 峰峰值
+        data_type: Real
+        offset: 8
+        size: 4
+        unit: mm/s²
+        scale: 1.0
+      - name: Kurtosis
+        display_name: 峭度
+        data_type: Real
+        offset: 12
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: CrestFactor
+        display_name: 波峰因数
+        data_type: Real
+        offset: 16
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: Status
+        display_name: 状态字
+        data_type: Word
+        offset: 20
+        size: 2
+        unit: ""
+        scale: 1.0
+
+  # ============================================================
+  # 13. 错误数据 (ErrorData)
+  # ============================================================
+  # Offset: 164-175 (12 bytes)
+  - name: ErrorData
+    description: 错误状态数据
+    total_size: 12
+    fields:
+      - name: ErrorCode
+        display_name: 错误代码
+        data_type: DWord
+        offset: 0
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: Timestamp
+        display_name: 发生时间
+        data_type: DWord
+        offset: 4
+        size: 4
+        unit: ""
+        scale: 1.0
+      - name: Reserved
+        display_name: 保留字段
+        data_type: DWord
+        offset: 8
+        size: 4
+        unit: ""
+        scale: 1.0
 
 
 # ============================================================

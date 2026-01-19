@@ -7,299 +7,80 @@
 
 db_number: 4
 description: "料仓传感器数据块 (PM10/温度/电表/振动)"
-total_size: 176  # 根据PLC实际DB4大小
+total_size: 176  # 根据PLC实际DB4大小 (0-175)
 
 # ============================================================
 # 单料仓传感器模块配置
 # ============================================================
 modules:
   # ------------------------------------------------------------
-  # 1. PM10 粉尘浓度传感器 (Offset 0-1)
+  # 1. PM10粉尘浓度 (Offset 0-1)
   # ------------------------------------------------------------
   - module_type: pm10
-    base_module: PM10Sensor  # 引用 plc_modules.yaml
+    base_module: PM10Sensor
     offset: 0
-    description: "空气质量PM10传感器"
+    size: 2
+    description: "PM10 粉尘浓度"
 
   # ------------------------------------------------------------
-  # 2. 温度传感器 (Offset 2-3)
+  # 2. 温度 (Offset 2-3)
   # ------------------------------------------------------------
   - module_type: temperature
-    base_module: TemperatureSensor  # 引用 plc_modules.yaml
+    base_module: TemperatureSensor
     offset: 2
-    description: "料仓温度传感器"
+    size: 2
+    description: "料仓温度"
 
   # ------------------------------------------------------------
-  # 3. 电表数据 (Offset 4-59)
+  # 3. 电表 (Offset 4-59)
   # ------------------------------------------------------------
-  # 3.1 线电压 Uab (Offset 4-15, 3个Real=12 bytes)
-  - module_type: electricity_uab
+  - module_type: electricity
+    base_module: ElectricityMeter
     offset: 4
-    description: "三相线电压 (Uab)"
-    fields:
-      - name: Uab_0
-        display_name: "A-B线电压"
-        data_type: Real
-        offset: 0
-        size: 4
-        unit: "V"
-        scale: 1.0
-      - name: Uab_1
-        display_name: "B-C线电压"
-        data_type: Real
-        offset: 4
-        size: 4
-        unit: "V"
-        scale: 1.0
-      - name: Uab_2
-        display_name: "C-A线电压"
-        data_type: Real
-        offset: 8
-        size: 4
-        unit: "V"
-        scale: 1.0
-
-  # 3.2 相电压 Ua (Offset 16-27, 3个Real=12 bytes)
-  - module_type: electricity_ua
-    offset: 16
-    description: "三相相电压 (Ua)"
-    fields:
-      - name: Ua_0
-        display_name: "A相电压"
-        data_type: Real
-        offset: 0
-        size: 4
-        unit: "V"
-        scale: 1.0
-      - name: Ua_1
-        display_name: "B相电压"
-        data_type: Real
-        offset: 4
-        size: 4
-        unit: "V"
-        scale: 1.0
-      - name: Ua_2
-        display_name: "C相电压"
-        data_type: Real
-        offset: 8
-        size: 4
-        unit: "V"
-        scale: 1.0
-
-  # 3.3 电流 I (Offset 28-39, 3个Real=12 bytes)
-  - module_type: electricity_i
-    offset: 28
-    description: "三相电流 (I)"
-    fields:
-      - name: I_0
-        display_name: "A相电流"
-        data_type: Real
-        offset: 0
-        size: 4
-        unit: "A"
-        scale: 1.0
-      - name: I_1
-        display_name: "B相电流"
-        data_type: Real
-        offset: 4
-        size: 4
-        unit: "A"
-        scale: 1.0
-      - name: I_2
-        display_name: "C相电流"
-        data_type: Real
-        offset: 8
-        size: 4
-        unit: "A"
-        scale: 1.0
-
-  # 3.4 有功功率 (Offset 40-55, 4个Real=16 bytes)
-  - module_type: electricity_power
-    offset: 40
-    description: "有功功率 (P)"
-    fields:
-      - name: Pt
-        display_name: "总有功功率"
-        data_type: Real
-        offset: 0
-        size: 4
-        unit: "kW"
-        scale: 1.0
-      - name: Pa
-        display_name: "A相有功功率"
-        data_type: Real
-        offset: 4
-        size: 4
-        unit: "kW"
-        scale: 1.0
-      - name: Pb
-        display_name: "B相有功功率"
-        data_type: Real
-        offset: 8
-        size: 4
-        unit: "kW"
-        scale: 1.0
-      - name: Pc
-        display_name: "C相有功功率"
-        data_type: Real
-        offset: 12
-        size: 4
-        unit: "kW"
-        scale: 1.0
-
-  # 3.5 电能 (Offset 56-59, 1个Real=4 bytes)
-  - module_type: electricity_energy
-    offset: 56
-    description: "正向有功总电能 (ImpEp)"
-    fields:
-      - name: ImpEp
-        display_name: "正向有功总电能"
-        data_type: Real
-        offset: 0
-        size: 4
-        unit: "kWh"
-        scale: 1.0
+    size: 56
+    description: "三相电表数据"
 
   # ------------------------------------------------------------
-  # 4. 振动传感器 VIB 结构 (Offset 60-97, 38 bytes)
+  # 4. 振动 (Offset 60-175)
   # ------------------------------------------------------------
-  # 完整的 VIB 结构包含多个子结构，我们提取核心数据
-  
-  # 4.1 加速度 ACCELERATION (Offset 60-65, 6 bytes)
+  # 4.1 加速度 (Offset 60-65)
   - module_type: vibration_acceleration
+    base_module: VibrationAcceleration
     offset: 60
-    description: "三轴加速度传感器 (原始值)"
-    fields:
-      - name: AX
-        display_name: "X轴加速度"
-        data_type: Word
-        offset: 0
-        size: 2
-        unit: "m/s²"
-        scale: 0.01  # 根据实际标定调整
-      - name: AY
-        display_name: "Y轴加速度"
-        data_type: Word
-        offset: 2
-        size: 2
-        unit: "m/s²"
-        scale: 0.01
-      - name: AZ
-        display_name: "Z轴加速度"
-        data_type: Word
-        offset: 4
-        size: 2
-        unit: "m/s²"
-        scale: 0.01
+    size: 6
+    description: "三轴加速度"
 
-  # 4.2 振动速度 VIBRATION_VEL_A (Offset 72-77, 6 bytes)
+  # 4.2 振动速度 (Offset 72-77)
   - module_type: vibration_velocity
+    base_module: VibrationVelocity
     offset: 72
-    description: "三轴振动速度 (有效值)"
-    fields:
-      - name: Vx
-        display_name: "X轴振动速度"
-        data_type: Word
-        offset: 0
-        size: 2
-        unit: "mm/s"
-        scale: 0.01
-      - name: Vy
-        display_name: "Y轴振动速度"
-        data_type: Word
-        offset: 2
-        size: 2
-        unit: "mm/s"
-        scale: 0.01
-      - name: Vz
-        display_name: "Z轴振动速度"
-        data_type: Word
-        offset: 4
-        size: 2
-        unit: "mm/s"
-        scale: 0.01
+    size: 6
+    description: "三轴振动速度"
 
-  # 4.3 振动位移 VIBRATION_DIS_A (Offset 86-91, 6 bytes) - 可选
-  - module_type: vibration_displacement
-    offset: 86
-    description: "三轴振动位移"
-    fields:
-      - name: Dx
-        display_name: "X轴位移"
-        data_type: Word
-        offset: 0
-        size: 2
-        unit: "μm"
-        scale: 0.01
-      - name: Dy
-        display_name: "Y轴位移"
-        data_type: Word
-        offset: 2
-        size: 2
-        unit: "μm"
-        scale: 0.01
-      - name: Dz
-        display_name: "Z轴位移"
-        data_type: Word
-        offset: 4
-        size: 2
-        unit: "μm"
-        scale: 0.01
+  # 4.3 X_DATA 结构 (Offset 98-119)
+  - module_type: vibration_x_data
+    base_module: XData
+    offset: 98
+    size: 22
+    description: "X轴数据结构"
 
-  # 4.4 振动频率 VIBRATION_FREQ (Offset 92-97, 6 bytes) - 可选
-  - module_type: vibration_frequency
-    offset: 92
-    description: "三轴振动频率"
-    fields:
-      - name: HZX
-        display_name: "X轴频率"
-        data_type: Word
-        offset: 0
-        size: 2
-        unit: "Hz"
-        scale: 0.1
-      - name: HZY
-        display_name: "Y轴频率"
-        data_type: Word
-        offset: 2
-        size: 2
-        unit: "Hz"
-        scale: 0.1
-      - name: HZZ
-        display_name: "Z轴频率"
-        data_type: Word
-        offset: 4
-        size: 2
-        unit: "Hz"
-        scale: 0.1
+  # 4.4 Y_DATA 结构 (Offset 120-141)
+  - module_type: vibration_y_data
+    base_module: YData
+    offset: 120
+    size: 22
+    description: "Y轴数据结构"
 
-# ============================================================
-# 数据映射说明 (基于 TIA Portal DB4 实际结构)
-# ============================================================
-# Offset 0-1:    AIR_QUALITY (Word) - PM10粉尘浓度
-# Offset 2-3:    thermal (Word) - 温度传感器
-# Offset 4-15:   Uab[0..2] (Array of Real) - 线电压
-# Offset 16-27:  Ua[0..2] (Array of Real) - 相电压
-# Offset 28-39:  I[0..2] (Array of Real) - 电流
-# Offset 40-43:  Pt (Real) - 总有功功率
-# Offset 44-47:  Pa (Real) - A相有功功率
-# Offset 48-51:  Pb (Real) - B相有功功率
-# Offset 52-55:  Pc (Real) - C相有功功率
-# Offset 56-59:  ImpEp (Real) - 正向有功总电能
-# 
-# VIB 结构 (Offset 60-97):
-# Offset 60-65:  ACCELERATION (AX, AY, AZ) - 加速度
-# Offset 66-71:  ACCELERATION_A (AXF, AYF, AZF) - 滤波加速度
-# Offset 72-77:  VIBRATION_VEL_A (Vx, Vy, Vz) - 振动速度 ★核心数据
-# Offset 78-83:  NULL (保留字段)
-# Offset 84-85:  TEMP (Word) - 传感器温度
-# Offset 86-91:  VIBRATION_DIS_A (Dx, Dy, Dz) - 振动位移
-# Offset 92-97:  VIBRATION_FREQ (HZX, HZY, HZZ) - 振动频率
-# Offset 98+:    X_DATA (Struct) - 扩展数据
-# ============================================================
-# 核心监控数据: 
-# - PM10浓度 (1个值)
-# - 温度 (1个值)
-# - 电表 (14个值: 3线电压+3相电压+3电流+4功率+1电能)
-# - 振动速度 (3个值: Vx/Vy/Vz) ★最重要
-# ============================================================
+  # 4.5 Z_DATA 结构 (Offset 142-163)
+  - module_type: vibration_z_data
+    base_module: ZData
+    offset: 142
+    size: 22
+    description: "Z轴数据结构"
+
+  # 4.6 ERR 结构 (Offset 164-175)
+  - module_type: vibration_error
+    base_module: ErrorData
+    offset: 164
+    size: 12
+    description: "错误状态数据"

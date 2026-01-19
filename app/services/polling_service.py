@@ -25,6 +25,7 @@ from app.plc.plc_manager import get_plc_manager
 from app.plc.parser_hopper import HopperParser
 from app.plc.parser_roller_kiln import RollerKilnParser
 from app.plc.parser_scr_fan import SCRFanParser
+from app.plc.parser_hopper_sensor import HopperSensorParser
 from app.tools import get_converter, CONVERTER_MAP
 
 settings = get_settings()
@@ -159,7 +160,8 @@ def _init_parsers():
     parser_classes = {
         'HopperParser': HopperParser,
         'RollerKilnParser': RollerKilnParser,
-        'SCRFanParser': SCRFanParser
+        'SCRFanParser': SCRFanParser,
+        'HopperSensorParser': HopperSensorParser
     }
     
     _parsers = {}
