@@ -118,7 +118,7 @@ def show_help():
   • 默认    - 显示所有数据表定义
 
 环境变量配置:
-  INFLUX_URL=http://localhost:8086
+  INFLUX_URL=http://localhost:8087
   INFLUX_TOKEN=ceramic-workshop-token
   INFLUX_ORG=ceramic-workshop
   INFLUX_BUCKET=sensor_data

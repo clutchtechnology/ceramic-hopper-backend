@@ -108,7 +108,7 @@ def query_test_data():
     print("\n" + "=" * 70)
     print("✅ 数据查询完成！")
     print("\n💡 提示:")
-    print("   • 访问 http://localhost:8086 查看 InfluxDB UI")
+    print("   • 访问 http://localhost:8087 查看 InfluxDB UI")
     print("   • 使用 Data Explorer 手动查询数据")
     print("   • 准备启动后端服务测试 API")
     print("=" * 70)

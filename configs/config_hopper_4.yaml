@@ -7,7 +7,7 @@
 
 db_number: 4
 description: "料仓传感器数据块 (PM10/温度/电表/振动)"
-total_size: 176  # 根据PLC实际DB4大小 (0-175)
+total_size: 144  # 根据PLC实际DB4大小 (0-143)
 
 # ============================================================
 # 单料仓传感器模块配置
@@ -41,46 +41,15 @@ modules:
     description: "三相电表数据"
 
   # ------------------------------------------------------------
-  # 4. 振动 (Offset 60-175)
+  # 4. 振动传感器精简版 (Offset 60-143)
   # ------------------------------------------------------------
-  # 4.1 加速度 (Offset 60-65)
-  - module_type: vibration_acceleration
-    base_module: VibrationAcceleration
+  # 只保留 PLC 工程师标注的字段：
+  # - 位移幅值: DX/DY/DZ
+  # - 频率: HZX/HZY/HZZ
+  # - 加速度峰值: KX/AAVGY/AAVGZ
+  # - 速度RMS: VRMSX/VRMSY/VRMGZ
+  - module_type: vibration
+    base_module: VibrationSelected
     offset: 60
-    size: 6
-    description: "三轴加速度"
-
-  # 4.2 振动速度 (Offset 72-77)
-  - module_type: vibration_velocity
-    base_module: VibrationVelocity
-    offset: 72
-    size: 6
-    description: "三轴振动速度"
-
-  # 4.3 X_DATA 结构 (Offset 98-119)
-  - module_type: vibration_x_data
-    base_module: XData
-    offset: 98
-    size: 22
-    description: "X轴数据结构"
-
-  # 4.4 Y_DATA 结构 (Offset 120-141)
-  - module_type: vibration_y_data
-    base_module: YData
-    offset: 120
-    size: 22
-    description: "Y轴数据结构"
-
-  # 4.5 Z_DATA 结构 (Offset 142-163)
-  - module_type: vibration_z_data
-    base_module: ZData
-    offset: 142
-    size: 22
-    description: "Z轴数据结构"
-
-  # 4.6 ERR 结构 (Offset 164-175)
-  - module_type: vibration_error
-    base_module: ErrorData
-    offset: 164
-    size: 12
-    description: "错误状态数据"
+    size: 84
+    description: "振动传感器核心指标（PLC工程师标注字段）"

@@ -7,12 +7,9 @@
 # 3. PUT /plc               - 更新PLC配置 (热更新，无需重启)
 # 4. POST /plc/test         - 测试PLC连接
 # 5. GET /database          - 获取数据库配置
-# 6. GET /sensors           - 获取传感器配置
-# 7. GET /db-mappings       - 获取DB块映射配置
-# 8. GET /db/{db_number}    - 获取指定DB块的设备配置
 # ============================================================
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel
 from typing import Optional
 
@@ -149,147 +146,12 @@ async def test_plc_connection():
         return ApiResponse.fail(f"PLC连接失败: {str(e)}")
 
 
-# ------------------------------------------------------------
-# 5. GET /db-mappings - 获取DB块映射配置
-# ------------------------------------------------------------
-@router.get("/db-mappings")
-async def get_db_mappings():
-    """获取所有DB块映射配置（动态配置核心）
-    
-    **返回**: 所有DB块的配置信息
-    - DB号
-    - DB名称
-    - 总大小
-    - 配置文件路径
-    - 解析器类名
-    - 启用状态
-    
-    **用途**:
-    - 前端动态了解数据结构
-    - 按DB块批量查询设备
-    - 配置变更后动态适配
-    
-    **示例**:
-    ```json
-    {
-        "success": true,
-        "data": {
-            "total": 3,
-            "mappings": [
-                {
-                    "db_number": 8,
-                    "db_name": "DB8_Hoppers",
-                    "total_size": 626,
-                    "description": "9个料仓设备（4短+2无+3长）",
-                    "enabled": true
-                },
-                ...
-            ]
-        }
-    }
-    ```
-    """
-    try:
-        import yaml
-        
-        # 读取 DB 映射配置
-        with open("configs/db_mappings.yaml", "r", encoding="utf-8") as f:
-            config = yaml.safe_load(f)
-        
-        mappings = []
-        for db in config.get("db_mappings", []):
-            mappings.append({
-                "db_number": db["db_number"],
-                "db_name": db["db_name"],
-                "total_size": db["total_size"],
-                "description": db.get("description", ""),
-                "parser_class": db.get("parser_class", ""),
-                "enabled": db.get("enabled", True)
-            })
-        
-        return ApiResponse.ok({
-            "total": len(mappings),
-            "mappings": mappings
-        })
-    except Exception as e:
-        return ApiResponse.fail(f"读取配置失败: {str(e)}")
-
-
-# ------------------------------------------------------------
-# 8. GET /db/{db_number} - 获取指定DB块的设备配置
-# ------------------------------------------------------------
-@router.get("/db/{db_number}")
-async def get_db_devices_config(db_number: int):
-    """获取指定DB块的所有设备配置
-    
-    **参数**:
-    - `db_number`: DB块号 (8/9/10)
-    
-    **返回**: 该DB块下所有设备的详细配置
-    
-    **示例**:
-    ```
-    GET /api/config/db/8  # 获取DB8（料仓）配置
-    GET /api/config/db/9  # 获取DB9（辊道窑）配置
-    GET /api/config/db/10 # 获取DB10（SCR/风机）配置
-    ```
-    """
-    try:
-        import yaml
-        
-        # 1. 先从 db_mappings 找到对应的配置文件
-        with open("configs/db_mappings.yaml", "r", encoding="utf-8") as f:
-            mappings = yaml.safe_load(f)
-        
-        db_info = None
-        for db in mappings.get("db_mappings", []):
-            if db["db_number"] == db_number:
-                db_info = db
-                break
-        
-        if not db_info:
-            return ApiResponse.fail(f"DB{db_number} 配置不存在")
-        
-        # 2. 读取具体的设备配置文件
-        config_file = db_info["config_file"]
-        with open(config_file, "r", encoding="utf-8") as f:
-            device_config = yaml.safe_load(f)
-        
-        # 3. 提取设备列表
-        devices = []
-        
-        # 处理料仓配置 (DB8)
-        if db_number == 8:
-            for hopper_type in ["short_hoppers", "no_hoppers", "long_hoppers"]:
-                if hopper_type in device_config:
-                    for device in device_config[hopper_type]:
-                        devices.append({
-                            "device_id": device["device_id"],
-                            "device_name": device["device_name"],
-                            "device_type": device["device_type"],
-                            "start_offset": device["start_offset"],
-                            "total_size": device["total_size"],
-                            "modules": device["modules"]
-                        })
-        
-        # 处理辊道窑配置 (DB9)
-        elif db_number == 9:
-            if "roller_kiln" in device_config:
-                devices.append(device_config["roller_kiln"])
-        
-        # 处理 SCR/风机配置 (DB10)
-        elif db_number == 10:
-            for device_type in ["scr_devices", "fan_devices"]:
-                if device_type in device_config:
-                    devices.extend(device_config[device_type])
-        
-        return ApiResponse.ok({
-            "db_number": db_number,
-            "db_name": db_info["db_name"],
-            "description": db_info.get("description", ""),
-            "total_devices": len(devices),
-            "devices": devices
-        })
-    except Exception as e:
-        return ApiResponse.fail(f"读取配置失败: {str(e)}")
+@router.get("/database")
+async def get_database_config():
+    """获取数据库配置"""
+    return ApiResponse.ok({
+        "influx_url": settings.influx_url,
+        "influx_org": settings.influx_org,
+        "influx_bucket": settings.influx_bucket
+    })
 

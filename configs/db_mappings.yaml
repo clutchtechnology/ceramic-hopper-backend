@@ -9,8 +9,8 @@
 # 轮询配置
 # ============================================================
 polling_config:
-  poll_interval: 7  # 轮询间隔 (秒)
-  batch_write_size: 20  # 批量写入间隔 (次数) - 避免缓冲区溢出
+  poll_interval: 5  # 轮询间隔 (秒)
+  batch_write_size: 12  # 批量写入间隔 (次数)
 
 # ============================================================
 # 设备状态位配置 - 用于检测各设备模块通信状态
@@ -29,8 +29,8 @@ db_mappings:
   # DB4 - 料仓传感器数据 (PM10/温度/电表/振动)
   - db_number: 4
     db_name: "DB4_HopperSensors"
-    total_size: 176
+    total_size: 144
     config_file: "configs/config_hopper_4.yaml"
-    parser_class: "HopperSensorParser"
+    parser_class: "Hopper4Parser"
     enabled: true
-    description: "料仓传感器数据（PM10/温度/电表/振动）"
+    description: "料仓传感器数据（PM10/温度/电表/振动 - PLC工程师标注字段）"

@@ -300,3 +300,90 @@ def query_data(
     except Exception as e:
         print(f"❌ InfluxDB 查询失败: {e}")
         return []
+
+
+# ------------------------------------------------------------
+# 8. Alarm System Support
+# ------------------------------------------------------------
+def write_alarm(
+    device_id: str,
+    sensor_type: str,
+    level: str,
+    value: float,
+    threshold: float,
+    message: str,
+    timestamp: Optional[datetime] = None
+) -> bool:
+    """写入报警记录
+    
+    Measurement: alarm_events
+    Tags: device_id, sensor_type, level
+    Fields: value (float), threshold (float), message (string)
+    """
+    try:
+        point = Point("alarm_events") \
+            .tag("device_id", device_id) \
+            .tag("sensor_type", sensor_type) \
+            .tag("level", level) \
+            .field("value", float(value)) \
+            .field("threshold", float(threshold)) \
+            .field("message", str(message))
+            
+        if timestamp:
+            if timestamp.tzinfo is None:
+                timestamp = timestamp.replace(tzinfo=timezone.utc)
+            point = point.time(timestamp)
+        else:
+            point = point.time(datetime.now(timezone.utc))
+
+        with _write_lock:
+            _get_write_api().write(
+                bucket=settings.influx_bucket,
+                org=settings.influx_org,
+                record=point
+            )
+        return True
+    except Exception as e:
+        print(f"❌ 报警写入失败: {e}")
+        return False
+
+def query_alarms(
+    start_time: datetime,
+    end_time: datetime,
+    limit: int = 100
+) -> List[Dict[str, Any]]:
+    """查询报警历史记录 (按时间倒序)"""
+    try:
+        client = get_influx_client()
+        query_api = client.query_api()
+        
+        query = f'''
+        from(bucket: "{settings.influx_bucket}")
+            |> range(start: {start_time.isoformat()}Z, stop: {end_time.isoformat()}Z)
+            |> filter(fn: (r) => r["_measurement"] == "alarm_events")
+            |> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+            |> sort(columns: ["_time"], desc: true)
+            |> limit(n: {limit})
+        '''
+        
+        result = query_api.query(query)
+        
+        alarms = []
+        for table in result:
+            for record in table.records:
+                # InfluxDB pivot 后字段都在 values 中
+                alarms.append({
+                    "time": record.get_time(),
+                    "device_id": record.values.get("device_id"),
+                    "sensor_type": record.values.get("sensor_type"),
+                    "level": record.values.get("level"),
+                    "value": record.values.get("value"),
+                    "threshold": record.values.get("threshold"),
+                    "message": record.values.get("message")
+                })
+        
+        return alarms
+    except Exception as e:
+        print(f"❌ 报警查询失败: {e}")
+        return []
+

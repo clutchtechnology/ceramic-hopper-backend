@@ -90,7 +90,7 @@ POST /api/config/plc/test
 ## 环境变量
 
 ```bash
-INFLUX_URL=http://localhost:8086
+INFLUX_URL=http://localhost:8088
 INFLUX_TOKEN=ceramic-workshop-token
 PLC_IP=192.168.50.223
 ```

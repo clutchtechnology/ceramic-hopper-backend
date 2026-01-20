@@ -1,13 +1,15 @@
 services:
   influxdb:
     image: influxdb:2.7
-    container_name: ceramic-influxdb
+    container_name: hopper-influxdb
     restart: unless-stopped
+    # 主机端口号改为8088（避免与workshop/waterpump冲突）
     ports:
-      - '8086:8086'
+      - '8088:8086'
     volumes:
-      - D:/data/influxdb_data:/var/lib/influxdb2
-      - D:/data/influxdb_config:/etc/influxdb2
+      # 使用独立的数据目录，避免与磨料车间数据冲突
+      - D:/data/hopper_influxdb_data:/var/lib/influxdb2
+      - D:/data/hopper_influxdb_config:/etc/influxdb2
     environment:
       - DOCKER_INFLUXDB_INIT_MODE=setup
       - DOCKER_INFLUXDB_INIT_USERNAME=admin
@@ -16,15 +18,33 @@ services:
       - DOCKER_INFLUXDB_INIT_BUCKET=sensor_data
       - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=ceramic-workshop-token
       - TZ=Asia/Shanghai
-    networks:
-      - ceramic-network
 
   backend:
     build: .
-    container_name: ceramic-backend
+    container_name: hopper-backend
     restart: unless-stopped
     ports:
-      - '8080:8080'
+      - '8082:8080'
+    depends_on:
+      - influxdb
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+      # 使用服务名 influxdb 通信 (Docker 默认网络)
+      - INFLUX_URL=http://influxdb:8086
+      - INFLUX_TOKEN=ceramic-workshop-token
+      - INFLUX_ORG=ceramic-workshop
+      - INFLUX_BUCKET=sensor_data
+      - MOCK_MODE=${MOCK_MODE:-true}
+      - TZ=Asia/Shanghai
+
+  backend-mock:
+    build: .
+    container_name: hopper-backend-mock
+    restart: unless-stopped
+    ports:
+      - '8083:8080'
     depends_on:
       - influxdb
     volumes:
@@ -35,10 +55,5 @@ services:
       - INFLUX_TOKEN=ceramic-workshop-token
       - INFLUX_ORG=ceramic-workshop
       - INFLUX_BUCKET=sensor_data
-      - MOCK_MODE=${MOCK_MODE:-true}
+      - MOCK_MODE=true
       - TZ=Asia/Shanghai
-    networks:
-      - ceramic-network
-
-networks:
-  ceramic-network:

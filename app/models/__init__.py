@@ -7,6 +7,4 @@
 # ============================================================
 
 # 导出现有的 Pydantic 模型
-from app.models.kiln import *
-from app.models.scr import *
 from app.models.response import *

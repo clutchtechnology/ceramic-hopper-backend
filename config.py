@@ -33,18 +33,17 @@ class Settings(BaseSettings):
     plc_rack: int = 0
     plc_slot: int = 1
     plc_timeout: int = 5000  # ms
-    plc_poll_interval: int = 6  # seconds (轮询间隔)
+    plc_poll_interval: int = 5  # seconds (轮询间隔)
     
     # 批量写入配置
-    # 🔧 [CRITICAL] 从30降到10，减少批量写入的数据量
-    # 每次轮询约46个数据点，10次=460点（原来30次=828点阻塞API 2-5秒）
-    batch_write_size: int = 10  # 多少次轮询后批量写入 InfluxDB
+    # 🔧 [CRITICAL] 12次轮询后批量写入（默认约60秒写入一次）
+    batch_write_size: int = 12  # 多少次轮询后批量写入 InfluxDB
     
     # 本地缓存配置
     local_cache_path: str = "data/cache.db"  # SQLite 缓存文件路径
     
     # InfluxDB 配置 (唯一数据库)
-    influx_url: str = "http://localhost:8086"
+    influx_url: str = "http://localhost:8088"
     influx_token: str = "ceramic-workshop-token"
     influx_org: str = "ceramic-workshop"
     influx_bucket: str = "sensor_data"

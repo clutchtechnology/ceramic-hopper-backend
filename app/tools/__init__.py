@@ -15,16 +15,23 @@
 
 from .converter_base import BaseConverter
 from .converter_elec import ElectricityConverter
-from .converter_flow import FlowConverter
 from .converter_temp import TemperatureConverter
-from .converter_weight import WeightConverter
+from .converter_pm10 import PM10Converter
+from .converter_vibration import VibrationConverter
 
 # 模块类型 → 转换器类 映射
 CONVERTER_MAP = {
+    # 基础模块名映射 (匹配 plc_modules.yaml)
     "ElectricityMeter": ElectricityConverter,
-    "FlowMeter": FlowConverter,
     "TemperatureSensor": TemperatureConverter,
-    "WeighSensor": WeightConverter,
+    "PM10Sensor": PM10Converter,
+    "VibrationSelected": VibrationConverter,
+    
+    # 业务类型名映射 (匹配 config_*.yaml 中的 module_type)
+    "electricity": ElectricityConverter,
+    "temperature": TemperatureConverter,
+    "pm10": PM10Converter,
+    "vibration_selected": VibrationConverter,
 }
 
 # 🔧 转换器实例缓存（转换器无状态，可以复用单例）

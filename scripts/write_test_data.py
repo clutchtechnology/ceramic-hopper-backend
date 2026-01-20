@@ -209,7 +209,7 @@ if __name__ == "__main__":
         
         print("\n🎉 所有测试数据写入成功！")
         print("\n💡 提示:")
-        print("  • 访问 http://localhost:8086 查看 InfluxDB 数据")
+        print("  • 访问 http://localhost:8087 查看 InfluxDB 数据")
         print("  • 使用 Data Explorer 查询 module_data 表")
         print("  • 启动后端服务测试 API 接口")
         

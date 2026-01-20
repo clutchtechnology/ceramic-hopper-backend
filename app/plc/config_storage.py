@@ -219,7 +219,7 @@ class YAMLConfigStorage:
                     'poll_interval': 5
                 },
                 'influxdb': {
-                    'url': 'http://localhost:8086',
+                    'url': 'http://localhost:8087',
                     'token': 'ceramic-workshop-token',
                     'org': 'ceramic-workshop',
                     'bucket': 'sensor_data'

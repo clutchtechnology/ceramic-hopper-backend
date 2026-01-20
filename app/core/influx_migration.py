@@ -46,7 +46,7 @@ class InfluxDBMigration:
             org: 组织名称
             bucket: 主 Bucket 名称
         """
-        self.url = url or os.getenv("INFLUX_URL", "http://localhost:8086")
+        self.url = url or os.getenv("INFLUX_URL", "http://localhost:8087")
         self.token = token or os.getenv("INFLUX_TOKEN", "ceramic-workshop-token")
         self.org = org or os.getenv("INFLUX_ORG", "ceramic-workshop")
         self.bucket = bucket or os.getenv("INFLUX_BUCKET", "sensor_data")
