@@ -5,7 +5,7 @@ PLC DB6 原始数据读取测试
 import snap7
 
 # PLC 配置
-IP = "192.168.50.223"
+IP = "192.168.50.235"
 RACK = 0
 SLOT = 1
 DB_NUMBER = 6

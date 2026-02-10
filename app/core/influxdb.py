@@ -75,7 +75,7 @@ def close_influx_client() -> None:
         try:
             _write_api.close()
         except Exception as e:
-            print(f"⚠️ 关闭 write_api 失败: {e}")
+            print(f"[InfluxDB] 关闭 write_api 失败: {e}")
         finally:
             _write_api = None
     
@@ -83,9 +83,9 @@ def close_influx_client() -> None:
     if _influx_client is not None:
         try:
             _influx_client.close()
-            print("✅ InfluxDB 客户端已关闭")
+            print("[InfluxDB] 客户端已关闭")
         except Exception as e:
-            print(f"⚠️ 关闭 InfluxDB 客户端失败: {e}")
+            print(f"[InfluxDB] 关闭客户端失败: {e}")
         finally:
             _influx_client = None
 

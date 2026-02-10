@@ -46,7 +46,7 @@ class Hopper4Parser:
         try:
             # 1. 加载基础模块定义
             if not self.module_config_path.exists():
-                print(f"⚠️  基础模块配置不存在: {self.module_config_path}")
+                print(f"[Parser] 基础模块配置不存在: {self.module_config_path}")
             else:
                 with open(self.module_config_path, 'r', encoding='utf-8') as f:
                     module_config = yaml.safe_load(f)
@@ -55,16 +55,16 @@ class Hopper4Parser:
                     
             # 2. 加载 DB4 结构配置
             if not self.config_path.exists():
-                print(f"⚠️  DB4 配置文件不存在: {self.config_path}")
+                print(f"[Parser] DB4 配置文件不存在: {self.config_path}")
             else:
                 with open(self.config_path, 'r', encoding='utf-8') as f:
                     self.config = yaml.safe_load(f)
             
             db_num = self.config.get('db_number', 4) if self.config else 4
             size = self.config.get('total_size', 176) if self.config else 176
-            print(f"✅ Hopper4Parser 初始化完成: DB{db_num}, 总大小{size}字节")
+            print(f"[Parser] Hopper4Parser 初始化完成: DB{db_num}, 总大小{size}字节")
         except Exception as e:
-            print(f"❌ Hopper4Parser 加载配置失败: {e}")
+            print(f"[Parser] Hopper4Parser 加载配置失败: {e}")
 
     def _parse_field_value(self, module_data: bytes, field: Dict[str, Any]) -> Any:
         """解析单个字段的基础数据类型"""
@@ -105,14 +105,14 @@ class Hopper4Parser:
         size = module_info['size']
         
         if base_module_name not in self.base_modules:
-            print(f"⚠️ 未找到基础模块定义: {base_module_name}")
+            print(f"[Parser] 未找到基础模块定义: {base_module_name}")
             return {}
             
         base_module = self.base_modules[base_module_name]
         
         # 边界检查
         if offset + size > len(db_data):
-            print(f"⚠️ 模块偏移越界: {base_module_name} (offset {offset}, size {size})")
+            print(f"[Parser] 模块偏移越界: {base_module_name} (offset {offset}, size {size})")
             return {}
             
         module_data = db_data[offset : offset + size]

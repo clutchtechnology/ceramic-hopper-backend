@@ -212,7 +212,7 @@ class YAMLConfigStorage:
         if not self.system_file.exists():
             default_system_config = {
                 'plc': {
-                    'ip': '192.168.50.223',
+                    'ip': '192.168.50.235',
                     'rack': 0,
                     'slot': 1,
                     'timeout': 5,

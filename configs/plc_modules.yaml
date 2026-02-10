@@ -1,7 +1,5 @@
-"""
-PLC 模块配置文件 - 料仓项目精简版
-仅保留四个基础模块：PM10、温度、电表、振动(DB4 60~144)
-"""
+# PLC 模块配置文件 - 料仓项目精简版
+# 仅保留四个基础模块：PM10、温度、电表、振动(DB4 60~144)
 
 modules:
   # ============================================================
@@ -24,7 +22,7 @@ modules:
   # ============================================================
   # 2. 温度传感器模块 (TemperatureSensor)
   # ============================================================
-  # Offset: 24-25 (2 bytes)
+ 
   # 数据类型: SINT16 (有符号16位整数)，单位 0.1摄氏度
   # 例如: PLC存储 1500 表示 150.0°C，存储 -50 表示 -5.0°C
   - name: TemperatureSensor
@@ -159,124 +157,89 @@ modules:
   # 4. 振动传感器精简模块 (VibrationSelected) - DB4专用
   # ============================================================
   # 基于 PLC DB4 实际结构 (偏移 60.0 ~ 142.0, 共 84 字节)
-  # 只保留 PLC 工程师标注的有注释字段
+  # 只保留三组核心数据: V_xyz (速度), D_xyz (位移), HZ_xyz (频率)
   # 总大小: 84 bytes (0-83)
   - name: VibrationSelected
-    description: 振动传感器精简模块（只保留标注字段）
+    description: 振动传感器精简模块（V/D/HZ三组数据）
     total_size: 84
     fields:
-      # ========== 振动位移幅值 (VIBRATION_DIS_A) ==========
-      # 偏移: 60.0-64.0 (6 bytes)
-      # 寄存器地址: 65~67 (0x41~0x43)
-      # 量程模式选择:
-      #   模式1 (当前配置): 60000μm量程, 1μm分辨率, scale=1.0
-      #     计算公式: DX(μm) = (DXH << 8) | DXL
-      #   模式2 (高精度模式): 600μm量程, 0.01μm分辨率, scale=0.01
-      #     计算公式: DX(μm) = ((DXH << 8) | DXL) / 100
-      # 如需切换到高精度模式，将下面的 scale 从 1.0 改为 0.01
-      - name: DX
-        display_name: X轴振动位移幅值
+      # ========== 1. 速度幅值 (VIBRATION_VEL_A) ==========
+      # DB4绝对偏移: 72.0-76.0 (相对振动模块起始偏移60.0, 这里是12-17)
+      # 计算公式: VX(mm/s) = ((VXH << 8) | VXL) / 100
+      - name: VX
+        display_name: X轴速度幅值
         data_type: Word
-        offset: 0
+        offset: 12
         size: 2
-        unit: μm
-        scale: 1.0
+        unit: mm/s
+        scale: 1
 
-      - name: DY
-        display_name: Y轴振动位移幅值
-        data_type: Word
-        offset: 2
-        size: 2
-        unit: μm
-        scale: 1.0
-
-      - name: DZ
-        display_name: Z轴振动位移幅值
-        data_type: Word
-        offset: 4
-        size: 2
-        unit: μm
-        scale: 1.0
-
-      # ========== 振动频率 (VIBRATION_FREQ) ==========
-      # 偏移: 66.0-70.0 (6 bytes)
-      # 寄存器地址: 68~70 (0x44~0x46)
-      # 计算公式: HZX(Hz) = ((HZXH << 8) | HZXL) / 10
-      # scale=0.1 完成 /10 转换
-      - name: HZX
-        display_name: X轴振动频率
-        data_type: Word
-        offset: 6
-        size: 2
-        unit: Hz
-        scale: 0.1
-
-      - name: HZY
-        display_name: Y轴振动频率
-        data_type: Word
-        offset: 8
-        size: 2
-        unit: Hz
-        scale: 0.1
-
-      - name: HZZ
-        display_name: Z轴振动频率
-        data_type: Word
-        offset: 10
-        size: 2
-        unit: Hz
-        scale: 0.1
-
-      # ========== X轴数据 (X_DATA) ==========
-      # 偏移: 72.0-94.0 (24 bytes)
-      - name: KX
-        display_name: X轴加速度峰值
+      - name: VY
+        display_name: Y轴速度幅值
         data_type: Word
         offset: 14
         size: 2
-        unit: m/s²
-        scale: 0.01
+        unit: mm/s
+        scale: 1
 
-      - name: VRMSX
-        display_name: X轴速度RMS值
+      - name: VZ
+        display_name: Z轴速度幅值
+        data_type: Word
+        offset: 16
+        size: 2
+        unit: mm/s
+        scale: 1
+
+      # ========== 2. 位移幅值 (VIBRATION_DIS_A) ==========
+      # DB4绝对偏移: 86.0-90.0 (相对振动模块起始偏移60.0, 这里是26-31)
+      # 计算公式: DX(μm) = ((DXH << 8) | DXL) / 100
+      - name: DX
+        display_name: X轴位移幅值
+        data_type: Word
+        offset: 26
+        size: 2
+        unit: μm
+        scale: 1
+
+      - name: DY
+        display_name: Y轴位移幅值
+        data_type: Word
+        offset: 28
+        size: 2
+        unit: μm
+        scale: 1
+
+      - name: DZ
+        display_name: Z轴位移幅值
         data_type: Word
         offset: 30
         size: 2
-        unit: mm/s
-        scale: 0.1
+        unit: μm
+        scale: 1
 
-      # ========== Y轴数据 (Y_DATA) ==========
-      # 偏移: 96.0-118.0 (24 bytes)
-      - name: AAVGY
-        display_name: Y轴加速度峰值
+      # ========== 3. 频率 (VIBRATION_FREQ) ==========
+      # DB4绝对偏移: 92.0-96.0 (相对振动模块起始偏移60.0, 这里是32-37)
+      # 计算公式: HZX(Hz) = ((HZXH << 8) | HZXL) / 10
+      - name: HZX
+        display_name: X轴频率
         data_type: Word
-        offset: 40
+        offset: 32
         size: 2
-        unit: m/s²
-        scale: 0.01
+        unit: Hz
+        scale: 1
 
-      - name: VRMSY
-        display_name: Y轴速度RMS值
+      - name: HZY
+        display_name: Y轴频率
         data_type: Word
-        offset: 54
+        offset: 34
         size: 2
-        unit: mm/s
-        scale: 0.1
+        unit: Hz
+        scale: 1
 
-      # ========== Z轴数据 (Z_DATA) ==========
-      # 偏移: 120.0-142.0 (24 bytes)
-      - name: AAVGZ
-        display_name: Z轴加速度峰值
+      - name: HZZ
+        display_name: Z轴频率
         data_type: Word
-        offset: 64
+        offset: 36
         size: 2
-        unit: m/s²
-        scale: 0.01
-
-      - name: VRMGZ
-        display_name: Z轴速度RMS值
-        data_type: Word
-        offset: 78
-        size: 2
-        unit: mm/s
-        scale: 0.1
+        unit: Hz
+        scale: 1

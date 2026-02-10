@@ -1,0 +1,2 @@
+2026-02-10 00:06:53 [INFO] scripts.tray_app: 已杀死进程: 42220(conhost.exe), 28744(python.exe)
+2026-02-10 00:06:53 [INFO] scripts.tray_app: 退出程序: 已停止所有进程: 42220(conhost.exe), 28744(python.exe)

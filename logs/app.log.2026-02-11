@@ -1,0 +1,89 @@
+2026-02-11 03:29:02 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-02-11 03:29:02 [INFO] root: [日志系统] 当前日志文件: app.log.2026-02-11
+2026-02-11 03:29:02 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-02-11 03:29:02 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-02-11 03:29:04 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 23644)
+2026-02-11 03:29:06 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-02-11 03:29:06 [INFO] root: [日志系统] 当前日志文件: app.log.2026-02-11
+2026-02-11 03:29:06 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-02-11 03:29:06 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-02-11 03:29:06 [INFO] main: Starting hopper backend...
+2026-02-11 03:29:06 [INFO] main: [启动] 初始化配置...
+2026-02-11 03:29:06 [INFO] main: [启动] 配置加载完成
+2026-02-11 03:29:06 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-02-11 03:29:14 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-02-11 03:29:14 [INFO] main: [启动] 轮询服务已启动
+2026-02-11 03:29:14 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-02-11 03:29:14 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-02-11 03:29:14 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-02-11 03:29:14 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-02-11 03:29:14 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-02-11 03:29:14 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-02-11 03:29:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:30:05 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:30:30 [INFO] app.services.ws_manager: [WS] 推送统计: 第150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:30:56 [INFO] app.services.ws_manager: [WS] 推送统计: 第200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:31:21 [INFO] app.services.ws_manager: [WS] 推送统计: 第250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:31:47 [INFO] app.services.ws_manager: [WS] 推送统计: 第300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:32:08 [INFO] scripts.tray_app: 已杀死进程: 38344(conhost.exe), 23644(python.exe)
+2026-02-11 03:32:08 [INFO] scripts.tray_app: 退出程序: 已停止所有进程: 38344(conhost.exe), 23644(python.exe)
+2026-02-11 03:32:13 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-02-11 03:32:13 [INFO] root: [日志系统] 当前日志文件: app.log.2026-02-11
+2026-02-11 03:32:13 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-02-11 03:32:13 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-02-11 03:32:14 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 52092)
+2026-02-11 03:32:15 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-02-11 03:32:15 [INFO] root: [日志系统] 当前日志文件: app.log.2026-02-11
+2026-02-11 03:32:15 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-02-11 03:32:15 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-02-11 03:32:15 [INFO] main: Starting hopper backend...
+2026-02-11 03:32:15 [INFO] main: [启动] 初始化配置...
+2026-02-11 03:32:15 [INFO] main: [启动] 配置加载完成
+2026-02-11 03:32:15 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-02-11 03:32:23 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-02-11 03:32:23 [INFO] main: [启动] 轮询服务已启动
+2026-02-11 03:32:23 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-02-11 03:32:23 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-02-11 03:32:23 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-02-11 03:32:24 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-02-11 03:32:24 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-02-11 03:32:24 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-02-11 03:32:49 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:33:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:33:28 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-02-11 03:33:28 [INFO] root: [日志系统] 当前日志文件: app.log.2026-02-11
+2026-02-11 03:33:28 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-02-11 03:33:28 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-02-11 03:33:28 [INFO] scripts.tray_app: 已杀死占用端口 8082 的进程: 52092(python.exe)
+2026-02-11 03:33:29 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 49488)
+2026-02-11 03:33:31 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-02-11 03:33:31 [INFO] root: [日志系统] 当前日志文件: app.log.2026-02-11
+2026-02-11 03:33:31 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-02-11 03:33:31 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-02-11 03:33:31 [INFO] main: Starting hopper backend...
+2026-02-11 03:33:31 [INFO] main: [启动] 初始化配置...
+2026-02-11 03:33:31 [INFO] main: [启动] 配置加载完成
+2026-02-11 03:33:31 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-02-11 03:33:39 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-02-11 03:33:39 [INFO] main: [启动] 轮询服务已启动
+2026-02-11 03:33:39 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-02-11 03:33:39 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-02-11 03:33:39 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-02-11 03:33:39 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-02-11 03:33:39 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-02-11 03:33:39 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-02-11 03:34:04 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:34:30 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:34:55 [INFO] app.services.ws_manager: [WS] 推送统计: 第150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:35:21 [INFO] app.services.ws_manager: [WS] 推送统计: 第200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:35:46 [INFO] app.services.ws_manager: [WS] 推送统计: 第250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:36:11 [INFO] app.services.ws_manager: [WS] 推送统计: 第300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:36:37 [INFO] app.services.ws_manager: [WS] 推送统计: 第350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-02-11 03:36:58 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-02-11 03:36:58 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0

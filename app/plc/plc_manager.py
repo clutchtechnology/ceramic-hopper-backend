@@ -21,10 +21,11 @@ settings = get_settings()
 try:
     import snap7
     from snap7.util import get_real, get_int
+    from snap7.type import Parameter as S7Parameter
     SNAP7_AVAILABLE = True
 except ImportError:
     SNAP7_AVAILABLE = False
-    print("⚠️ snap7 未安装，使用模拟模式")
+    print("snap7 未安装，使用模拟模式")
 
 
 class PLCManager:
@@ -66,11 +67,12 @@ class PLCManager:
         # 线程锁
         self._rw_lock = threading.Lock()
         
-        # 重连配置
-        self._reconnect_interval: float = 5.0  # 重连间隔（秒）
-        self._max_reconnect_attempts: int = 3  # 最大重连次数
-        self._health_check_interval: float = 30.0  # 健康检查间隔
-        self._max_consecutive_errors: int = 10  # 🔧 连续错误达到此值则强制重连
+        # 重连配置（优化：减少重试频率，避免频繁重连）
+        self._reconnect_interval: float = 10.0  # 重连间隔（秒）- 从 5s 增加到 10s
+        self._max_reconnect_attempts: int = 2  # 最大重连次数 - 从 3 次减少到 2 次
+        self._health_check_interval: float = 60.0  # 健康检查间隔 - 从 30s 增加到 60s
+        self._max_consecutive_errors: int = 20  # 连续错误达到此值则强制重连 - 从 10 次增加到 20 次
+        self._retry_delay: float = 2.0  # 重试延迟（秒）- 从 0.5s 增加到 2s
         
         print(f"📡 PLC Manager 初始化: {self._ip}:{self._rack}/{self._slot}")
     
@@ -123,26 +125,28 @@ class PLCManager:
                 self._client = snap7.client.Client()
             
             # 设置超时
-            self._client.set_param(snap7.types.PingTimeout, self._timeout_ms)
+            self._client.set_param(S7Parameter.PingTimeout, self._timeout_ms)
             
-            # 连接
+            # 连接（保持长连接，不主动断开）
             self._client.connect(self._ip, self._rack, self._slot)
             
             if not self._client.get_connected():
                 self._error_count += 1
+                self._consecutive_error_count += 1
                 self._last_error = "连接后状态检查失败"
                 return (False, self._last_error)
             
             self._connected = True
             self._last_connect_time = datetime.now(timezone.utc)
             self._connect_count += 1
-            self._error_count = 0
-            print(f"✅ PLC 已连接 ({self._ip}) [第 {self._connect_count} 次]")
+            self._consecutive_error_count = 0  # 连接成功后重置连续错误计数
+            print(f"✅ PLC 已连接 ({self._ip}) [第 {self._connect_count} 次] - 保持长连接")
             return (True, "")
         
         except Exception as e:
             self._connected = False
             self._error_count += 1
+            self._consecutive_error_count += 1
             self._last_error = str(e)
             print(f"❌ PLC 连接失败: {e}")
             return (False, self._last_error)
@@ -209,11 +213,11 @@ class PLCManager:
                     self._consecutive_error_count += 1
                     self._last_error = str(e)
                     
-                    # 尝试重连
+                    # 尝试重连（优化：增加重试延迟，避免频繁重连）
                     if attempt < self._max_reconnect_attempts - 1:
                         print(f"⚠️ DB{db_number} 读取失败 (尝试 {attempt+1}/{self._max_reconnect_attempts}): {e}")
                         self._disconnect_internal()
-                        time.sleep(0.5)
+                        time.sleep(self._retry_delay)  # 使用配置的重试延迟
                         success, _ = self._connect_internal()
                         if not success:
                             continue

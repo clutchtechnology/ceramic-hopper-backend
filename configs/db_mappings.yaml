@@ -6,11 +6,18 @@
 # ============================================================
 
 # ============================================================
-# 轮询配置
+# 轮询配置（注意：.env 文件优先级更高）
+# ============================================================
+# 配置优先级（从高到低）:
+# 1. .env 文件中的 PLC_POLL_INTERVAL 和 BATCH_WRITE_SIZE（最高优先级）
+# 2. 此 YAML 文件中的 polling_config（作为 fallback）
+# 3. 代码中的默认值
+#
+# 推荐做法：在 .env 文件中配置，此处仅作为备用配置
 # ============================================================
 polling_config:
-  poll_interval: 5  # 轮询间隔 (秒)
-  batch_write_size: 12  # 批量写入间隔 (次数)
+  poll_interval: 1  # 轮询间隔 (秒) - 会被 .env 的 PLC_POLL_INTERVAL 覆盖
+  batch_write_size: 12  # 批量写入间隔 (次数) - 会被 .env 的 BATCH_WRITE_SIZE 覆盖
 
 # ============================================================
 # 设备状态位配置 - 用于检测各设备模块通信状态
@@ -29,8 +36,17 @@ db_mappings:
   # DB4 - 料仓传感器数据 (PM10/温度/电表/振动)
   - db_number: 4
     db_name: "DB4_HopperSensors"
-    total_size: 144
+    total_size: 60
     config_file: "configs/config_hopper_4.yaml"
     parser_class: "Hopper4Parser"
     enabled: true
     description: "料仓传感器数据（PM10/温度/电表/振动 - PLC工程师标注字段）"
+
+  # DB6 - 振动传感器完整数据 (加速度/速度/位移/频率/温度)
+  - db_number: 6
+    db_name: "DB6_VibrationSensor"
+    total_size: 38
+    config_file: "configs/config_hopper_vib_db6.yaml"
+    parser_class: "VibDB6Parser"
+    enabled: true
+    description: "振动传感器完整数据（加速度/速度/位移/频率/温度）"

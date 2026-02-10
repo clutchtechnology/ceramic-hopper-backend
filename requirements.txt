@@ -24,3 +24,7 @@ passlib[bcrypt]==1.7.4
 # Development
 pytest==7.4.4
 httpx==0.26.0
+
+# GUI (Tray App)
+PyQt5==5.15.9
+psutil==5.9.8

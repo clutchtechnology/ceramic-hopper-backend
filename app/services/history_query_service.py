@@ -381,9 +381,9 @@ class HistoryQueryService:
             device_id=device_id,
             start=start,
             end=end,
-            module_type="TemperatureSensor",
+            module_type="temperature",
             module_tag=module_tag,
-            fields=["Temperature", "SetPoint"],
+            fields=["temperature"],
             interval=interval
         )
     
@@ -403,7 +403,7 @@ class HistoryQueryService:
             device_id=device_id,
             start=start,
             end=end,
-            module_type="ElectricityMeter",
+            module_type="electricity",
             module_tag=module_tag,
             fields=["Pt", "ImpEp"],
             interval=interval
@@ -465,16 +465,6 @@ class HistoryQueryService:
         records.sort(key=lambda x: x["time"])
         
         return records
-        """查询设备功率历史数据（便捷方法）"""
-        return self.query_device_history(
-            device_id=device_id,
-            start=start,
-            end=end,
-            module_type="ElectricityMeter",
-            module_tag=module_tag,
-            fields=["Pt", "Uab_0", "Uab_1", "Uab_2", "I_0", "I_1", "I_2"],
-            interval=interval
-        )
     
     # ------------------------------------------------------------
     # 6. query_weight_history() - 查询称重历史

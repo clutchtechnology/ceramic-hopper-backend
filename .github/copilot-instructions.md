@@ -1,255 +1,492 @@
-# Electric Furnace Hopper Backend - AI Coding Guidelines
+# 料仓监控系统后端开发规则
 
-> **Project Identity**: `ceramic-hopper-backend` (FastAPI + InfluxDB + S7-1200)  
-> **Role**: AI Assistant for Industrial IoT Backend Development  
-> **Core Philosophy**: **Occam's Razor** - Simplicity is stability. Keep logic minimal, stateless where possible.
+## 项目标识
 
----
-
-## 1. 核心架构原则 (Core Principles)
-
-### 1.1 配置驱动 (Configuration Driven)
-
-- **config_hoppers_8.yaml**: 唯一设备配置文件，定义4类传感器的内存映射。
-- **原则**: 新增传感器或调整参数时，**优先修改 YAML**，避免硬编码。
-
-### 1.2 高可靠性轮询 (High Reliability Polling)
-
-- **长连接**: `PLCManager` 单例维护 S7 连接，避免频繁握手。
-- **批量写入**: 采集数据缓存 10 次后批量写入 InfluxDB（`batch_write_size: 10`），减少 I/O 压力。
-- **本地降级**: InfluxDB 不可用时自动降级写入 SQLite (`LocalCache`)，恢复后自动回放。
-- **Mock 模式**: 当 `MOCK_MODE=true` 或无法连接 PLC 时，自动切换到 Mock 数据生成。
-
-### 1.3 数据简化 (Data Simplification)
-
-**料仓项目仅支持 4 类传感器** (遵循奥卡姆剃刀原则):
-
-1. **PM10 传感器** (粉尘浓度监测)
-2. **温度传感器** (料仓温度)
-3. **电表** (电压、电流、功率)
-4. **振动传感器** (X/Y/Z 三轴振动幅值)
-
-**删除所有不需要的设备**: 称重、流量、SCR、辊道窑等。
+- **项目名称**: ceramic-hopper-backend
+- **技术栈**: FastAPI + WebSocket + InfluxDB + Snap7
+- **核心理念**: WebSocket 实时推送 + 本地 InfluxDB 部署 + 高可靠性轮询
 
 ---
 
-## 2. 数据流架构 (Data Flow Architecture)
+## 架构原则
 
-```mermaid
-graph TD
-    PLC[S7-1200 PLC DB8] -->|S7 Protocol| PollingService
+### 1. WebSocket 优先策略
 
-    subgraph PollingService
-        direction TB
-        Conn[PLC Manager Singleton]
-        Parser[Hopper Parser]
-        Converter[Data Converter]
-        Buffer[Batch Buffer: 10 cycles]
-        LocalCache[SQLite Cache]
-    end
+- **实时推送**: 所有实时数据必须通过 WebSocket (`ws://host:port/ws/realtime`) 推送
+- **推送间隔**: 0.1s (100ms) 极快响应
+- **HTTP 降级**: HTTP API 仅用于历史数据查询和配置管理
+- **连接管理**: 使用 `ws_manager.py` 统一管理连接、订阅和推送任务
 
-    PLC --> Parser
-    Parser --> Converter
-    Converter --> Buffer
+### 2. 本地部署优先
 
-    Buffer -->|Batch Write| InfluxDB[(InfluxDB)]
-    Buffer -.->|DB Fail| LocalCache
-    LocalCache -.->|Auto Replay| InfluxDB
+- **InfluxDB**: 推荐本地安装，避免 Docker 网络延迟
+- **配置**: `INFLUX_URL=http://localhost:8088`
+- **性能**: 本地部署提供更快的数据写入和查询响应
 
-    InfluxDB -->|Query| API[FastAPI Endpoints]
+### 3. 数据流架构
+
+```
+PLC/Mock → Polling Service (5s) → Memory Cache → WebSocket Push (0.1s) → Clients
+                                 ↓
+                            InfluxDB (批量写入) → HTTP Query
 ```
 
+### 4. 配置驱动
+
+- **config_hopper_4.yaml**: 唯一设备配置文件，定义4类传感器的内存映射
+- **原则**: 新增传感器或调整参数时，优先修改 YAML，避免硬编码
+
 ---
 
-## 3. 关键文件结构 (Project Structure)
+## 核心组件
 
-```text
-ceramic-hopper-backend/
-├── main.py                           # FastAPI 入口 (Lifespan管理)
-├── config.py                         # 全局配置 (Env加载)
-├── configs/                          # [配置层]
-│   ├── config_hoppers_8.yaml         # ★ 料仓配置 (4类传感器)
-│   ├── db_mappings.yaml              # DB块映射表 (仅DB8)
-│   ├── plc_modules.yaml              # 基础模块定义
-│   └── status_hopper_3.yaml          # 状态映射 (DB3)
-├── app/
-│   ├── core/
-│   │   ├── influxdb.py               # InfluxDB 读写封装
-│   │   ├── local_cache.py            # SQLite 本地降级缓存
-│   │   └── influx_migration.py       # 自动Schema迁移
-│   ├── plc/                          # [PLC 层]
-│   │   ├── plc_manager.py            # 连接管理器 (Reconnect)
-│   │   ├── parser_hopper.py          # 料仓数据解析器
-│   │   └── s7_client.py              # Snap7 客户端封装
-│   ├── tools/                        # [转换层]
-│   │   ├── converter_elec.py         # 电表数据精简 (14->8字段)
-│   │   ├── converter_pm10.py         # PM10数据转换
-│   │   ├── converter_temperature.py  # 温度数据转换
-│   │   └── converter_vibration.py    # 振动数据转换
-│   ├── services/                     # [服务层]
-│   │   ├── polling_service.py        # 核心轮询逻辑
-│   │   └── history_query_service.py  # 历史数据查询
-│   └── routers/                      # [API 路由]
-│       ├── hopper.py                 # 料仓接口 (实时+历史)
-│       ├── health.py                 # 健康检查
-│       └── status.py                 # 设备状态接口
-└── docker-compose.yml                # 容器编排
+### WebSocket 层
+
+**文件**: `app/services/ws_manager.py`, `app/routers/websocket.py`
+
+- **ConnectionManager**: 单例模式，管理所有 WebSocket 连接
+- **订阅频道**: `realtime` (实时数据)
+- **心跳机制**: 客户端 15s 发送，服务端 45s 超时断开
+- **推送任务**: `asyncio.create_task()` 异步推送，避免阻塞
+
+**消息模型**: `app/models/ws_messages.py`
+- 使用 Pydantic v2 进行消息验证
+- 所有消息必须包含 `type` 字段
+- 消息类型: `subscribe`, `unsubscribe`, `heartbeat`, `realtime_data`, `error`
+
+### 轮询服务层
+
+**文件**: `app/services/polling_service.py`
+
+- **轮询间隔**: 5 秒
+- **内存缓存**: 全局变量缓存最新数据，供 WebSocket 推送使用
+- **双重写入**: 
+  1. 更新内存缓存 (实时推送)
+  2. 批量写入 InfluxDB (历史查询)
+- **错误隔离**: 单个设备失败不影响整体轮询
+- **Mock 模式**: `mock_mode=true` 时使用模拟数据
+
+### PLC 通信层
+
+**文件**: `app/plc/plc_manager.py`, `app/plc/parser_hopper_4.py`
+
+- **连接管理**: 自动重连机制
+- **数据解析**: 基于 YAML 配置的偏移量解析
+- **长连接**: 单例维护 S7 连接，避免频繁握手
+
+**python-snap7 库破坏性变更 (2.0.2)**:
+```python
+#  旧版 (1.x)
+from snap7.types import PingTimeout
+timeout = 9
+
+#  新版 (2.0.2)
+from snap7.type import Parameter
+timeout = Parameter.PingTimeout  # 值为 3
 ```
+- 参数 API 从 `snap7.types` 改为 `snap7.type.Parameter`
+- `PingTimeout` 默认值从 9 改为 3
+- 升级时需要更新 PLC 连接配置和超时设置
+
+### 数据库层
+
+**文件**: `app/core/influxdb.py`
+
+- **Measurement**: `sensor_data`
+- **Tags**: `device_id`, `device_type`, `module_type`
+- **Fields**: 动态字段 (pm10, temperature, voltage, current, vibration, etc.)
+- **批量写入**: 减少网络开销
+- **本地降级**: InfluxDB 不可用时自动降级写入 SQLite (`LocalCache`)
 
 ---
 
-## 4. 核心实现规范 (Implementation Specs)
+## 设备数据结构
 
-### 4.1 数据解析与转换流程
+### 料仓传感器单元 (hopper_sensor_unit)
 
-**Parse (解析)** → **Convert (转换)** → **Batch Write (批量写入)**
+**设备**: 4号料仓综合监测单元 (`hopper_unit_4`)
 
-1. **Parse (解析)**:
-   - `HopperParser` 读取 `config_hoppers_8.yaml` 中的偏移量。
-   - 将 PLC 原始 `bytes` 解析为 Python 字典 (Raw Values)。
-   - **不进行单位转换**，只按 `Byte/Word/Real` 读取数值。
+**模块** (仅支持4类传感器):
 
-2. **Convert (转换)**:
-   - `Converter` 类将 Raw Values 转换为物理量 (Physical Values)。
-   - 例: `ElectrocityMeterConverter` 精简电表字段为 `Pt`, `Ua`, `Ia` 等 8 个核心字段。
-   - 例: `VibrationConverter` 提取 X/Y/Z 三轴振动幅值。
+1. **PM10 粉尘浓度** (`pm10`)
+   - 字段: `pm10_value` (μg/m³)
 
-3. **Batch Write (批量写入)**:
-   - 缓存 10 次轮询数据后，批量写入 InfluxDB。
-   - 失败时自动降级到 SQLite (`LocalCache`)，数据库恢复后自动重放。
+2. **温度传感器** (`temperature`)
+   - 字段: `temperature_value` (°C)
 
-### 4.2 轮询服务特性 (`polling_service.py`)
+3. **三相电表** (`electricity`)
+   - 字段: `Pt` (总功率), `ImpEp` (累计电量), `Ua_0`, `I_0`, `I_1`, `I_2` (电压电流)
+
+4. **振动传感器** (`vibration_selected`)
+   - 速度幅值: `vx`, `vy`, `vz`
+   - 速度RMS: `vrms_x`, `vrms_y`, `vrms_z`
+   - 波峰因素: `cf_x`, `cf_y`, `cf_z`
+   - 峭度: `k_x`, `k_y`, `k_z`
+   - 频率: `freq_x`, `freq_y`, `freq_z`
+   - 温度: `temperature`
+   - 故障诊断: `err_x`, `err_y`, `err_z`
+
+---
+
+## 编码规范
+
+### 1. 命名规范
+
+- **文件名**: 小写下划线 `snake_case.py`
+- **类名**: 大驼峰 `PascalCase`
+- **函数/变量**: 小写下划线 `snake_case`
+- **常量**: 大写下划线 `UPPER_SNAKE_CASE`
+
+### 2. 注释规范
+
+**使用序号+注释风格**：
 
 ```python
-# 核心配置
-POLL_INTERVAL = 6  # seconds (6秒轮询一次)
-BATCH_SIZE = 10    # 10次轮询后批量写入 (60秒一次写入)
+# 1. 初始化 WebSocket 连接管理器
+def __init__(self):
+    self.active_connections = {}
+    self.last_heartbeat = {}
 
-# Mock 模式
-# 当 MOCK_MODE=true 或 PLC 连接失败时，自动生成模拟数据
-# 保障前端开发不依赖硬件
+# 2. 处理客户端连接
+async def connect(self, websocket: WebSocket):
+    await websocket.accept()
+    self.active_connections[websocket] = set()
 ```
 
-**异常处理规范**:
+**文件头部注释**：
+```python
+"""
+WebSocket 连接管理器 - 管理所有客户端连接和消息推送
+"""
+```
 
-- 轮询循环必须包含宽泛的 `try-except`。
-- 捕获所有已知/未知异常并记录日志。
-- **绝不允许服务崩溃退出**。
+**禁止使用 Emoji 表情符号**：
+- 原因: 编码兼容性、代码审查、专业性、版本控制、跨平台
+- 正确: `# 1. 初始化连接管理器`
+- 错误: `# 🚀 初始化连接管理器`
 
-### 4.3 InfluxDB 设计
+### 3. 代码设计原则 (奥卡姆剃刀)
 
-**Measurement**: `sensor_data` (单表存储)
+**避免过度抽象**：
+- 不要提前抽象：需要用的时候再抽象
+- 避免冗余方法：一个文件不要抽象出太多方法
+- 实用主义：能直接写就直接写
 
-**Tags**:
+✅ **好的做法**：
+```python
+# 1. 推送实时数据
+async def push_realtime_data(self, timestamp: str):
+    latest = get_latest_data()
+    message = {
+        "type": "realtime_data",
+        "timestamp": timestamp,
+        "data": latest
+    }
+    await self.broadcast("realtime", message)
+```
 
-- `device_id`: 设备编号 (例: `hopper_1`)
-- `device_type`: 设备类型 (固定值: `hopper`)
-- `module_type`: 模块类型 (例: `pm10`, `temperature`, `electricity`, `vibration`)
+❌ **过度抽象**：
+```python
+def _format_timestamp(self, ts):
+    return ts
 
-**Fields** (动态字段):
+def _create_message_header(self, msg_type):
+    return {"type": msg_type}
 
-- PM10: `concentration` (μg/m³)
-- Temperature: `temperature` (°C)
-- Electricity: `Pt`, `Ua_0`, `Ua_1`, `Ua_2`, `Ia_0`, `Ia_1`, `Ia_2`, `PF` (功率因数)
-- Vibration: `vibration_x`, `vibration_y`, `vibration_z` (mm/s)
+def _add_timestamp(self, msg, ts):
+    msg["timestamp"] = ts
+    return msg
+
+async def push_realtime_data(self, timestamp: str):
+    latest = get_latest_data()
+    header = self._create_message_header("realtime_data")
+    message = self._add_timestamp(header, self._format_timestamp(timestamp))
+    message["data"] = latest
+    await self.broadcast("realtime", message)
+```
+
+### 4. WebSocket 代码规范
+
+```python
+# ✅ 正确：处理连接断开
+try:
+    await websocket.send_json(message)
+except WebSocketDisconnect:
+    manager.disconnect(websocket)
+except Exception as e:
+    logger.warning(f"发送失败: {e}")
+    manager.disconnect(websocket)
+
+# ✅ 正确：检查连接状态
+if ws.application_state != WebSocketState.CONNECTED:
+    manager.disconnect(ws)
+    return
+
+# ❌ 错误：不处理异常
+await websocket.send_json(message)  # 可能导致服务崩溃
+```
+
+### 5. 异步任务规范
+
+```python
+# ✅ 正确：使用 asyncio.create_task
+self._push_task = asyncio.create_task(self._push_loop())
+
+# ✅ 正确：优雅停止任务
+if self._push_task:
+    self._push_task.cancel()
+    try:
+        await self._push_task
+    except asyncio.CancelledError:
+        pass
+
+# ❌ 错误：直接 await 会阻塞
+await self._push_loop()  # 会阻塞主线程
+```
+
+### 6. 内存缓存规范
+
+```python
+# ✅ 正确：使用全局缓存
+_latest_data: Dict[str, Any] = {}
+
+def get_latest_data() -> Dict[str, Any]:
+    return _latest_data.copy()
+
+# ✅ 正确：线程安全更新
+def update_cache(device_id: str, data: dict):
+    _latest_data[device_id] = data
+
+# ❌ 错误：每次查询数据库
+data = query_influxdb()  # 性能差
+```
+
+### 7. 日志规范
+
+```python
+# ✅ 正确：WebSocket 日志
+logger.info(f"[WS] 新连接建立，当前连接数: {count}")
+logger.debug(f"[WS] 推送 realtime_data -> {subs} 个订阅者")
+logger.warning(f"[WS] 客户端心跳超时 ({delta:.0f}s)")
+
+# ✅ 正确：错误日志包含 traceback
+logger.error(f"[WS] 推送任务异常: {e}", exc_info=True)
+
+# ❌ 错误：缺少上下文
+logger.error("错误")  # 无法定位问题
+```
+
+### 8. 配置驱动规范
+
+```python
+# ✅ 正确：从 YAML 读取配置
+config = load_yaml("configs/config_hopper_4.yaml")
+offset = config["modules"][0]["offset"]
+
+# ❌ 错误：硬编码
+offset = 0  # 难以维护
+```
 
 ---
 
-## 5. API 接口规范
+## API 接口规范
 
-**Base URL**: `http://localhost:8082` (注意端口与其他项目区分)
+### WebSocket 接口 (主要)
 
-### 5.1 实时数据接口
+**端点**: `ws://localhost:8080/ws/realtime`
 
-```yaml
-GET /api/hopper/realtime:
-  描述: 获取料仓所有传感器的实时数据
-  返回:
-    pm10:
-      concentration: 35.5 # μg/m³
-      status: 'normal'
-    temperature:
-      value: 28.5 # °C
-    electricity:
-      Pt: 5.8 # kW
-      Ua_0: 380.0 # V (A相电压)
-      Ia_0: 15.2 # A (A相电流)
-    vibration:
-      x: 0.5 # mm/s
-      y: 0.3
-      z: 0.4
+**客户端消息**:
+```json
+{"type": "subscribe", "channel": "realtime"}
+{"type": "heartbeat", "timestamp": "2026-02-09T10:30:00Z"}
 ```
 
-### 5.2 历史数据接口
+**服务端推送**:
+```json
+{
+  "type": "realtime_data",
+  "success": true,
+  "timestamp": "2026-02-09T10:30:00.000Z",
+  "source": "plc",
+  "data": {
+    "hopper_unit_4": {
+      "device_id": "hopper_unit_4",
+      "device_name": "4号料仓综合监测单元",
+      "device_type": "hopper_sensor_unit",
+      "timestamp": "2026-02-09T10:30:00.000Z",
+      "modules": {
+        "pm10": {
+          "module_type": "pm10",
+          "fields": {"pm10_value": 45.2}
+        },
+        "temperature": {
+          "module_type": "temperature",
+          "fields": {"temperature_value": 28.5}
+        },
+        "electricity": {
+          "module_type": "electricity",
+          "fields": {
+            "Pt": 5.6,
+            "ImpEp": 1234.5,
+            "Ua_0": 380.5,
+            "I_0": 12.3,
+            "I_1": 12.1,
+            "I_2": 12.4
+          }
+        },
+        "vibration_selected": {
+          "module_type": "vibration_selected",
+          "fields": {
+            "vx": 2.3,
+            "vy": 2.1,
+            "vz": 1.8,
+            "vrms_x": 1.5,
+            "vrms_y": 1.4,
+            "vrms_z": 1.2,
+            "freq_x": 50.2,
+            "freq_y": 50.1,
+            "freq_z": 50.3,
+            "temperature": 45.6
+          }
+        }
+      }
+    }
+  }
+}
+```
 
+### HTTP 接口 (降级)
+
+**Base URL**: `http://localhost:8080/api`
+
+- `GET /hopper/realtime/batch`: 批量实时数据
+- `GET /hopper/{device_id}/history`: 历史数据查询
+- `GET /health`: 健康检查
+- `GET /ws/status`: WebSocket 连接统计
+
+**历史数据查询示例**:
 ```yaml
-GET /api/hopper/history:
+GET /api/hopper/{device_id}/history:
   参数:
     - sensor_type: string (pm10|temperature|electricity|vibration)
     - start: ISO 8601 datetime
     - end: ISO 8601 datetime
     - interval: string (5s|1m|5m|1h|1d)
-  返回: [{ timestamp: '2026-01-18T10:00:00Z', value: 35.5 }, ...]
-```
-
-### 5.3 健康检查接口
-
-```yaml
-GET /api/health:
-  返回:
-    status: 'healthy'
-    influxdb_connected: true
-    plc_connected: true
-    queue_length: 8 # 批量写入队列长度
-    last_poll_time: '2026-01-18T10:00:00Z'
+  返回: [{ timestamp: '2026-02-09T10:00:00Z', value: 45.2 }, ...]
 ```
 
 ---
 
-## 6. 稳定性与性能优化 (Stability & Performance)
+## 性能优化
 
-### 6.1 [CRITICAL] 防止服务崩溃
+### 1. 内存缓存优先
 
 ```python
-# ✅ 正确做法: 轮询循环必须包含宽泛的异常捕获
-async def polling_loop():
-    while is_running():
-        try:
-            await poll_and_write()
-            await asyncio.sleep(POLL_INTERVAL)
-        except Exception as e:
-            logger.error(f"Polling error: {e}", exc_info=True)
-            await asyncio.sleep(POLL_INTERVAL)  # 继续运行，不退出
+# 优先级 1: 内存缓存 (最快)
+cached_data = get_latest_data()
+
+# 优先级 2: Mock 数据 (开发模式)
+if settings.mock_mode:
+    data = MockService.generate_hopper_data()
+
+# 优先级 3: InfluxDB 查询 (降级)
+data = query_data(measurement="sensor_data", ...)
 ```
 
-### 6.2 [CRITICAL] 防止批量写入阻塞 API
+### 2. 批量写入
+
+```python
+# ✅ 正确：批量写入 InfluxDB
+points = []
+for device_id, data in devices.items():
+    points.append(Point("sensor_data").tag("device_id", device_id).field("pm10_value", data["pm10"]))
+write_api.write(bucket=bucket, record=points)
+
+# ❌ 错误：逐条写入
+for device_id, data in devices.items():
+    write_api.write(...)  # 性能差
+```
+
+### 3. 异步推送
+
+```python
+# ✅ 正确：异步推送，不阻塞
+async def broadcast(self, channel: str, message: dict):
+    tasks = []
+    for ws, channels in self.active_connections.items():
+        if channel in channels:
+            tasks.append(ws.send_json(message))
+    await asyncio.gather(*tasks, return_exceptions=True)
+
+# ❌ 错误：同步推送，阻塞
+for ws in connections:
+    await ws.send_json(message)  # 串行执行
+```
+
+### 4. 批量写入大小优化
 
 **问题**: 原磨料车间项目 `batch_write_size=30`，导致批量写入时 API 响应 2-5 秒延迟。
 
 **解决方案**:
-
 ```python
 # config.py
 batch_write_size: int = 10  # 从30降到10，减少阻塞时间
 ```
 
-### 6.3 [CRITICAL] InfluxDB 连接管理
+---
+
+## 错误处理
+
+### 1. WebSocket 错误
 
 ```python
-# ✅ 正确做法: 使用单例模式，复用连接
-@lru_cache()
-def get_influx_client():
-    return InfluxDBClient(url=settings.influx_url, token=settings.influx_token)
-
-# ✅ 应用关闭时释放资源
-def close_influx_client():
-    get_influx_client.cache_clear()
+# ✅ 必须处理的异常
+try:
+    await websocket.send_json(message)
+except WebSocketDisconnect:
+    # 客户端主动断开
+    manager.disconnect(websocket)
+except RuntimeError as e:
+    # 连接已关闭
+    if "WebSocket is not connected" in str(e):
+        manager.disconnect(websocket)
+except Exception as e:
+    # 其他未知错误
+    logger.error(f"发送失败: {e}", exc_info=True)
+    manager.disconnect(websocket)
 ```
 
-### 6.4 [CRITICAL] PLC 重连机制
+### 2. 轮询错误 (防止服务崩溃)
 
 ```python
-# PLCManager 必须实现自动重连
+# ✅ 正确：宽泛的异常捕获，防止服务崩溃
+async def polling_loop():
+    while is_running():
+        try:
+            data = await poll_plc()
+            update_cache(data)
+            await asyncio.sleep(POLL_INTERVAL)
+        except Exception as e:
+            logger.error(f"轮询异常: {e}", exc_info=True)
+            await asyncio.sleep(POLL_INTERVAL)  # 继续运行，不退出
+```
+
+### 3. 数据库错误 (降级策略)
+
+```python
+# ✅ 正确：降级到本地缓存
+try:
+    write_api.write(bucket=bucket, record=points)
+except Exception as e:
+    logger.error(f"InfluxDB 写入失败: {e}")
+    # 降级到 SQLite 本地缓存
+    local_cache.save(points)
+```
+
+### 4. PLC 重连机制
+
+```python
+#  PLCManager 必须实现自动重连
 def reconnect(self):
     max_retries = 3
     for i in range(max_retries):
@@ -265,73 +502,146 @@ def reconnect(self):
 
 ---
 
-## 7. 配置文件示例 (config_hoppers_8.yaml)
+## 开发流程
 
-```yaml
-# 料仓配置 (DB8) - 仅包含4类传感器
-db_number: 8
-hopper_count: 8 # 支持8个料仓
+### 1. 启动服务
 
-modules:
-  - module_type: pm10
-    base_module: PM10 # 引用 plc_modules.yaml
-    offset: 0
+```bash
+# 本地开发 (推荐)
+uvicorn main:create_app --factory --host 0.0.0.0 --port 8080 --reload
 
-  - module_type: temperature
-    base_module: TEMPERATURE
-    offset: 10
+# Mock 模式
+python main.py
 
-  - module_type: electricity
-    base_module: ELECTRO_METER # 14字段电表
-    offset: 20
+# 生产模式
+mock_mode=false python main.py
+```
 
-  - module_type: vibration
-    base_module: VIBRATION_3AXIS
-    offset: 90
+### 2. 测试 WebSocket
+
+```bash
+# 使用 websocat 测试
+websocat ws://localhost:8080/ws/realtime
+
+# 发送订阅消息
+{"type": "subscribe", "channel": "realtime"}
+
+# 发送心跳
+{"type": "heartbeat", "timestamp": "2026-02-09T10:30:00Z"}
+```
+
+### 3. 查看日志
+
+```bash
+# 查看 WebSocket 连接日志
+grep "[WS]" logs/app.log
+
+# 查看推送日志
+grep "推送" logs/app.log
 ```
 
 ---
 
-## 8. Mock 数据生成 (开发模式)
+## 常见问题
+
+### 1. WebSocket 连接断开
+
+**原因**: 心跳超时、网络中断、客户端崩溃
+
+**解决**:
+- 检查客户端心跳间隔 (应 < 45s)
+- 实现客户端重连机制 (指数退避)
+- 查看服务端日志 `[WS]` 标记
+
+### 2. 推送延迟高
+
+**原因**: 推送间隔过大、数据库查询慢、内存缓存未命中
+
+**解决**:
+- 检查 `PUSH_INTERVAL` 配置 (默认 0.1s)
+- 确保轮询服务正常运行
+- 优先使用内存缓存，避免查询数据库
+
+### 3. 内存持续增长
+
+**原因**: WebSocket 连接未清理、缓存无限增长
+
+**解决**:
+- 检查 `disconnect()` 是否正确调用
+- 实现心跳超时清理机制
+- 限制缓存大小 (如只保留最新 1000 条)
+
+### 4. InfluxDB 连接失败
+
+**原因**: 服务未启动、端口错误、认证失败
+
+**解决**:
+- 检查 InfluxDB 服务状态
+- 确认 `INFLUX_URL=http://localhost:8088`
+- 验证 Token 和 Bucket 配置
+
+---
+
+## 文件结构速查
+
+```
+ceramic-hopper-backend/
+├── main.py                           # 入口 (Lifespan 管理)
+├── config.py                         # 全局配置
+├── configs/                          # YAML 配置文件
+│   ├── config_hopper_4.yaml          # ★ 料仓设备数据点映射
+│   ├── db_mappings.yaml              # DB 块映射
+│   └── plc_modules.yaml              # 模块定义
+├── app/
+│   ├── models/
+│   │   ├── ws_messages.py            # ★ WebSocket 消息模型
+│   │   └── response.py               # HTTP 响应模型
+│   ├── services/
+│   │   ├── ws_manager.py             # ★ WebSocket 连接管理器
+│   │   ├── polling_service.py        # ★ 轮询服务
+│   │   └── mock_service.py           # Mock 数据生成
+│   ├── routers/
+│   │   ├── websocket.py              # ★ WebSocket 路由
+│   │   ├── hopper_4.py               # HTTP 实时数据接口
+│   │   ├── health.py                 # 健康检查
+│   │   ├── config.py                 # 配置管理
+│   │   └── alarms.py                 # 报警管理
+│   ├── plc/
+│   │   ├── plc_manager.py            # PLC 连接管理
+│   │   └── parser_hopper_4.py        # 数据解析器
+│   └── core/
+│       ├── influxdb.py               # InfluxDB 封装
+│       └── local_cache.py            # SQLite 降级缓存
+└── docs/
+    └── WEBSOCKET_PROTOCOL.md         # ★ WebSocket 协议规范
+```
+
+---
+
+## Mock 数据生成 (开发模式)
 
 ```python
-# 当 MOCK_MODE=true 时，自动生成模拟数据
+# 当 mock_mode=true 时，自动生成模拟数据
 def generate_mock_data():
     return {
-        "pm10": {"concentration": random.uniform(20, 50)},
-        "temperature": {"value": random.uniform(25, 35)},
+        "pm10": {"pm10_value": random.uniform(20, 50)},
+        "temperature": {"temperature_value": random.uniform(25, 35)},
         "electricity": {
             "Pt": random.uniform(5, 10),
             "Ua_0": random.uniform(370, 390),
-            "Ia_0": random.uniform(10, 20),
+            "I_0": random.uniform(10, 20),
         },
         "vibration": {
-            "x": random.uniform(0.3, 0.8),
-            "y": random.uniform(0.2, 0.6),
-            "z": random.uniform(0.3, 0.7),
+            "vx": random.uniform(0.3, 0.8),
+            "vy": random.uniform(0.2, 0.6),
+            "vz": random.uniform(0.3, 0.7),
         },
     }
 ```
 
 ---
 
-## 9. 开发命令 (Development)
-
-```powershell
-# 启动 Mock 模式后端
-cd ceramic-hopper-backend
-docker compose --profile mock up -d --build
-
-# 本地运行 (需要先启动 InfluxDB)
-uvicorn main:create_app --factory --host 0.0.0.0 --port 8082 --reload
-
-# 测试健康检查
-curl http://localhost:8082/api/health
-```
-
----
-
-## 10. 代码审查清单 (Code Review Checklist)
+## 代码审查清单
 
 - [ ] 所有轮询逻辑都有 `try-except` 保护
 - [ ] `batch_write_size` 设置为 10 (不超过 20)
@@ -341,13 +651,41 @@ curl http://localhost:8082/api/health
 - [ ] 日志包含时间戳和 traceback
 - [ ] 配置文件中没有硬编码 IP 地址
 - [ ] Mock 模式可以独立运行
+- [ ] WebSocket 连接正确处理断开、超时和重连
+- [ ] 所有异步任务使用 `asyncio.create_task()`
+- [ ] 内存缓存优先于数据库查询
+- [ ] 错误日志包含 `exc_info=True`
 
 ---
 
-**AI 指令**:
+## AI 编码指令
 
-1. **简单至上**: 能用简单逻辑实现的，不要引入复杂的类层次结构。
-2. **防崩溃**: 任何涉及 I/O (网络, 数据库, PLC) 的操作必须有超时和重试机制。
-3. **清晰日志**: 报错时产生的日志必须包含 traceback 和上下文信息。
-4. **删除冗余**: 删除所有不需要的设备类型 (称重、流量、SCR、辊道窑)。
-使用中文回复.
+1. **WebSocket 优先**: 实时数据推送必须使用 WebSocket，HTTP 仅作降级
+2. **本地部署**: 推荐本地 InfluxDB，避免 Docker 延迟
+3. **内存缓存**: 优先使用内存缓存，减少数据库查询
+4. **异常处理**: 所有 I/O 操作必须有异常处理和重试机制
+5. **连接管理**: WebSocket 连接必须正确处理断开、超时和重连
+6. **批量写入**: InfluxDB 写入使用批量模式，减少网络开销
+7. **异步推送**: 使用 `asyncio.create_task()` 异步推送，避免阻塞
+8. **日志规范**: 关键操作必须记录日志，错误日志包含 traceback
+9. **配置驱动**: 优先修改 YAML 配置，避免硬编码
+10. **协议规范**: 严格遵循 `docs/WEBSOCKET_PROTOCOL.md` 定义的消息格式
+11. **简单至上**: 能用简单逻辑实现的，不要引入复杂的类层次结构
+12. **防崩溃**: 任何涉及 I/O (网络, 数据库, PLC) 的操作必须有超时和重试机制
+13. **清晰日志**: 报错时产生的日志必须包含 traceback 和上下文信息
+14. **删除冗余**: 删除所有不需要的设备类型和代码
+15. **不使用emoji** :任何时候不适用emoji表情做注释或者是log等一些,我的项目不允许出现emoji.
+16. **每次回复** :喊我大王.
+---
+
+## 参考文档
+
+- `docs/WEBSOCKET_PROTOCOL.md` - WebSocket 协议规范
+- `README.md` - 项目说明
+- `configs/*.yaml` - 设备配置文件
+- `.cursor/rules/hopper.mdc` - 完整开发规则
+
+---
+
+**使用中文回复。**
+

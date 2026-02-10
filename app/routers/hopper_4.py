@@ -25,15 +25,10 @@ async def get_all_hoppers_realtime():
     """批量获取所有料仓实时数据（从内存缓存读取）
 
     **返回字段说明**
-    - 电表模块 (module_type = electricity): Pt, ImpEp, Ua_0, I_0, I_1, I_2
-    - 振动模块 (module_type = vibration_selected):
-      - 速度幅值: vx, vy, vz
-      - 速度RMS: vrms_x, vrms_y, vrms_z
-      - 波峰因素: cf_x, cf_y, cf_z
-      - 峭度: k_x, k_y, k_z
-      - 频率: freq_x, freq_y, freq_z
-      - 温度: temperature
-      - 故障诊断: err_x, err_y, err_z
+    - PM10模块 (module_type = pm10): pm10_value (ug/m3)
+    - 温度模块 (module_type = temperature): temperature (C)
+    - 电表模块 (module_type = electricity): Ua_0/Ua_1/Ua_2(V), I_0/I_1/I_2(A), Pt(kW), ImpEp(kWh)
+    - 振动模块 (module_type = vibration): vx/vy/vz(mm/s), dx/dy/dz(um), hzx/hzy/hzz(Hz)
     """
     try:
         all_data = get_latest_data()
@@ -74,18 +69,18 @@ async def get_hopper_history(
     module_type: Optional[str] = Query(
         None,
         description="模块类型筛选",
-        enum=["pm10", "temperature", "electricity", "vibration_selected"],
-        example="vibration_selected"
+        enum=["pm10", "temperature", "electricity", "vibration"],
+        example="vibration"
     ),
-    fields: Optional[str] = Query(None, description="字段筛选 (逗号分隔)", example="vrms_x,vrms_y,vrms_z"),
+    fields: Optional[str] = Query(None, description="字段筛选 (逗号分隔)", example="vx,vy,vz"),
     interval: Optional[str] = Query("5m", description="聚合间隔", example="5m")
 ):
-    """获取料仓历史数据（按 tag 查询）
+    """获取料仓历史数据 (按 tag 查询)
 
-    **电表字段**: Pt, ImpEp, Ua_0, I_0, I_1, I_2
-    **振动字段**: vx, vy, vz, vrms_x, vrms_y, vrms_z, cf_x, cf_y, cf_z,
-                 k_x, k_y, k_z, freq_x, freq_y, freq_z, temperature,
-                 err_x, err_y, err_z
+    **PM10字段**: pm10_value (ug/m3)
+    **温度字段**: temperature (C)
+    **电表字段**: Ua_0, Ua_1, Ua_2 (V), I_0, I_1, I_2 (A), Pt (kW), ImpEp (kWh)
+    **振动字段**: vx, vy, vz (mm/s), dx, dy, dz (um), hzx, hzy, hzz (Hz)
     """
     try:
         if not start:
@@ -95,8 +90,13 @@ async def get_hopper_history(
 
         field_list = fields.split(",") if fields else None
 
+        # 振动数据拆分到 DB6 后，InfluxDB 中 device_id 为 hopper_vib_6
+        query_device_id = device_id
+        if module_type == "vibration" and device_id == "hopper_unit_4":
+            query_device_id = "hopper_vib_6"
+
         data = get_history_service().query_device_history(
-            device_id=device_id,
+            device_id=query_device_id,
             start=start,
             end=end,
             module_type=module_type,

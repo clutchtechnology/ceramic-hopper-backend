@@ -8,3 +8,20 @@
 
 # 导出现有的 Pydantic 模型
 from app.models.response import *
+from app.models.ws_messages import (
+    SubscribeMessage,
+    UnsubscribeMessage,
+    HeartbeatMessage,
+    RealtimeDataMessage,
+    ErrorMessage,
+    ErrorCode
+)
+
+__all__ = [
+    'SubscribeMessage',
+    'UnsubscribeMessage',
+    'HeartbeatMessage',
+    'RealtimeDataMessage',
+    'ErrorMessage',
+    'ErrorCode'
+]

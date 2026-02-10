@@ -264,7 +264,7 @@ def main():
             ("GET", "/api/config/server", None, None, "获取服务器配置"),
             ("GET", "/api/config/plc", None, None, "获取PLC配置"),
             ("PUT", "/api/config/plc", None, 
-             {"ip_address": "192.168.50.223", "poll_interval": 5}, 
+             {"ip_address": "192.168.50.235", "poll_interval": 5}, 
              "更新PLC配置"),
             ("POST", "/api/config/plc/test", None, None, "测试PLC连接"),
         ]

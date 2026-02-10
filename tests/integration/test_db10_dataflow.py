@@ -16,7 +16,7 @@ from pathlib import Path
 from app.tools import get_converter, CONVERTER_MAP
 
 # PLC 配置
-IP = "192.168.50.223"
+IP = "192.168.50.235"
 RACK = 0
 SLOT = 1
 DB_NUMBER = 10

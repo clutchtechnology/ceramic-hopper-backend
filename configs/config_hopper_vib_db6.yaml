@@ -1,0 +1,215 @@
+# ============================================================
+# 振动传感器数据块配置文件 (DB6)
+# ============================================================
+# 基于 TIA Portal DB6 数据块结构
+# 数据类型: 振动传感器完整数据 (加速度/速度/位移/频率/温度)
+# 结构: vib_1 -> accel / accel_f / vel / reserved / dis_f / freq
+# ============================================================
+
+db_number: 6
+description: "振动传感器完整数据块 (加速度/速度/位移/频率/温度)"
+total_size: 38  # 根据PLC实际DB6大小 (0-37, 共38字节)
+
+# ============================================================
+# 振动传感器模块配置 (vib_1)
+# ============================================================
+modules:
+  # ------------------------------------------------------------
+  # 1. 加速度 accel (Offset 0-5)
+  # ------------------------------------------------------------
+  - module_type: accel
+    offset: 0
+    size: 6
+    description: "加速度幅值"
+    fields:
+      - name: accel_x
+        display_name: X轴加速度
+        data_type: Int
+        offset: 0
+        size: 2
+        unit: ""
+        scale: 1
+
+      - name: accel_y
+        display_name: Y轴加速度
+        data_type: Int
+        offset: 2
+        size: 2
+        unit: ""
+        scale: 1
+
+      - name: accel_z
+        display_name: Z轴加速度
+        data_type: Int
+        offset: 4
+        size: 2
+        unit: ""
+        scale: 1
+
+  # ------------------------------------------------------------
+  # 2. 加速度频率 accel_f (Offset 6-11)
+  # ------------------------------------------------------------
+  - module_type: accel_f
+    offset: 6
+    size: 6
+    description: "加速度频率"
+    fields:
+      - name: accel_f_x
+        display_name: X轴加速度频率
+        data_type: Int
+        offset: 6
+        size: 2
+        unit: Hz
+        scale: 1
+
+      - name: accel_f_y
+        display_name: Y轴加速度频率
+        data_type: Int
+        offset: 8
+        size: 2
+        unit: Hz
+        scale: 1
+
+      - name: accel_f_z
+        display_name: Z轴加速度频率
+        data_type: Int
+        offset: 10
+        size: 2
+        unit: Hz
+        scale: 1
+
+  # ------------------------------------------------------------
+  # 3. 速度 vel (Offset 12-17)
+  # ------------------------------------------------------------
+  - module_type: vel
+    offset: 12
+    size: 6
+    description: "速度幅值"
+    fields:
+      - name: vel_x
+        display_name: X轴速度
+        data_type: Int
+        offset: 12
+        size: 2
+        unit: mm/s
+        scale: 1
+
+      - name: vel_y
+        display_name: Y轴速度
+        data_type: Int
+        offset: 14
+        size: 2
+        unit: mm/s
+        scale: 1
+
+      - name: vel_z
+        display_name: Z轴速度
+        data_type: Int
+        offset: 16
+        size: 2
+        unit: mm/s
+        scale: 1
+
+  # ------------------------------------------------------------
+  # 4. 预留 reserved (Offset 18-25)
+  # ------------------------------------------------------------
+  - module_type: reserved
+    offset: 18
+    size: 8
+    description: "预留数据 (含温度)"
+    fields:
+      - name: reserved_x
+        display_name: 预留X
+        data_type: Int
+        offset: 18
+        size: 2
+        unit: ""
+        scale: 1
+
+      - name: reserved_y
+        display_name: 预留Y
+        data_type: Int
+        offset: 20
+        size: 2
+        unit: ""
+        scale: 1
+
+      - name: reserved_z
+        display_name: 预留Z
+        data_type: Int
+        offset: 22
+        size: 2
+        unit: ""
+        scale: 1
+
+      - name: temp
+        display_name: 温度
+        data_type: Int
+        offset: 24
+        size: 2
+        unit: °C
+        scale: 1
+
+  # ------------------------------------------------------------
+  # 5. 位移幅值 dis_f (Offset 26-31)
+  # ------------------------------------------------------------
+  - module_type: dis_f
+    offset: 26
+    size: 6
+    description: "位移幅值"
+    fields:
+      - name: dis_f_x
+        display_name: X轴位移幅值
+        data_type: Int
+        offset: 26
+        size: 2
+        unit: "um"
+        scale: 1
+
+      - name: dis_f_y
+        display_name: Y轴位移幅值
+        data_type: Int
+        offset: 28
+        size: 2
+        unit: "um"
+        scale: 1
+
+      - name: dis_f_z
+        display_name: Z轴位移幅值
+        data_type: Int
+        offset: 30
+        size: 2
+        unit: "um"
+        scale: 1
+
+  # ------------------------------------------------------------
+  # 6. 频率 (Offset 32-37)
+  # ------------------------------------------------------------
+  - module_type: freq
+    offset: 32
+    size: 6
+    description: "频率"
+    fields:
+      - name: freq_x
+        display_name: X轴频率
+        data_type: Int
+        offset: 32
+        size: 2
+        unit: "Hz"
+        scale: 1
+
+      - name: freq_y
+        display_name: Y轴频率
+        data_type: Int
+        offset: 34
+        size: 2
+        unit: "Hz"
+        scale: 1
+
+      - name: freq_z
+        display_name: Z轴频率
+        data_type: Int
+        offset: 36
+        size: 2
+        unit: "Hz"
+        scale: 1
