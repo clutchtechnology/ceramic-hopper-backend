@@ -130,7 +130,7 @@ def convert_and_write(devices: list, db_number: int = 9):
                 converter = get_converter(module_type)
                 fields = converter.convert(raw_fields)
             except Exception as e:
-                print(f"   ⚠️  转换失败 {module_type}: {e}")
+                print(f"     转换失败 {module_type}: {e}")
                 continue
             
             if not fields:
@@ -269,7 +269,7 @@ def main():
     try:
         asyncio.run(verify_api())
     except Exception as e:
-        print(f"   ⚠️  API 验证跳过 (服务未运行): {e}")
+        print(f"     API 验证跳过 (服务未运行): {e}")
     
     print("\n" + "=" * 70)
     print("✅ DB9 完整流程测试完成!")

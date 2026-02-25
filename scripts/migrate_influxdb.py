@@ -75,9 +75,9 @@ def check_connection():
             if bucket:
                 print(f"✅ Bucket '{migration.bucket}' 已存在")
             else:
-                print(f"⚠️  Bucket '{migration.bucket}' 不存在，需要执行迁移")
+                print(f"  Bucket '{migration.bucket}' 不存在，需要执行迁移")
         except Exception as e:
-            print(f"⚠️  检查 Bucket 失败: {e}")
+            print(f"  检查 Bucket 失败: {e}")
         
         migration.disconnect()
     else:

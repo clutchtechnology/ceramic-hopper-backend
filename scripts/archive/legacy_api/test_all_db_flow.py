@@ -162,11 +162,11 @@ def main():
             print("=" * 70)
         else:
             print("\n" + "=" * 70)
-            print(f"⚠️  部分测试失败 ({fail} 个)")
+            print(f"  部分测试失败 ({fail} 个)")
             print("=" * 70)
             
     except Exception as e:
-        print(f"\n   ⚠️  API 验证跳过 (服务未运行): {e}")
+        print(f"\n     API 验证跳过 (服务未运行): {e}")
         print("   提示: 请先运行 python3 main.py 启动服务")
     
     print("\n✅ 测试完成!")

@@ -156,9 +156,8 @@ def test_backend_config_examples():
     print("   DISPLACEMENT_MODE = 'high_range'  →  DISPLACEMENT_MODE = 'high_precision'")
     print()
     print("3. 重启服务:")
-    print("   docker compose down")
-    print("   docker compose build --no-cache backend-mock")
-    print("   docker compose up -d backend-mock")
+    print("   停止当前进程")
+    print("   python main.py")
     print()
 
 if __name__ == "__main__":
@@ -171,7 +170,7 @@ if __name__ == "__main__":
     print("测试完成")
     print("=" * 60)
     print()
-    print("💡 提示:")
+    print("提示:")
     print("  - 当前后端配置使用高量程模式 (60000μm, scale=1.0)")
     print("  - 如需切换到高精度模式 (600μm, scale=0.01)，请参考上述配置示例")
     print("  - 频率固定使用 scale=0.1 (除以10)，不需要修改")

@@ -96,7 +96,7 @@ class LocalCache:
         cursor = self._conn.execute("SELECT COUNT(*) FROM pending_points")
         count = cursor.fetchone()[0]
         if count > 0:
-            print(f"⚠️ 本地缓存有 {count} 条待写入数据")
+            print(f" 本地缓存有 {count} 条待写入数据")
     
     def save_points(self, points: List[CachedPoint]) -> int:
         """保存数据点到本地缓存

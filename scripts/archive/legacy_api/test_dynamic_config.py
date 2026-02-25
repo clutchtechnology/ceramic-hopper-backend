@@ -132,13 +132,13 @@ def test_config_consistency():
         if actual_size == expected_size:
             print(f"   ✅ 大小一致: {expected_size} 字节")
         else:
-            print(f"   ⚠️  大小不一致: 映射={expected_size}, 配置={actual_size}")
+            print(f"     大小不一致: 映射={expected_size}, 配置={actual_size}")
             all_consistent = False
     
     if all_consistent:
         print("\n✅ 所有配置一致!")
     else:
-        print("\n⚠️  存在配置不一致")
+        print("\n  存在配置不一致")
     
     return all_consistent
 

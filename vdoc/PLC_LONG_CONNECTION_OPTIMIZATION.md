@@ -138,7 +138,7 @@ def get_s7_client() -> S7Client:
                 try:
                     _s7_client.connect()
                 except Exception as e:
-                    print(f"⚠️ 初始化 PLC 连接失败: {e}")
+                    print(f" 初始化 PLC 连接失败: {e}")
     return _s7_client
 ```
 
@@ -254,8 +254,8 @@ python main.py
 # 2. 断开 PLC 网络连接
 
 # 3. 观察日志，应该看到：
-# ⚠️ DB8 读取失败 (尝试 1/2): ...
-# ⚠️ 连续 X 次错误，强制重连 PLC...
+#  DB8 读取失败 (尝试 1/2): ...
+#  连续 X 次错误，强制重连 PLC...
 
 # 4. 恢复 PLC 网络连接
 

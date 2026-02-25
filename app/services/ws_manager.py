@@ -16,6 +16,7 @@ from fastapi import WebSocket, WebSocketDisconnect
 from starlette.websockets import WebSocketState
 
 from config import get_settings
+from app.models.ws_messages import RealtimeDataMessage
 
 logger = logging.getLogger(__name__)
 settings = get_settings()
@@ -193,13 +194,11 @@ class ConnectionManager:
         
         source = "mock" if settings.mock_mode else "plc"
 
-        message = {
-            "type": "realtime_data",
-            "success": True,
-            "timestamp": timestamp,
-            "source": source,
-            "data": latest,
-        }
+        message = RealtimeDataMessage(
+            timestamp=timestamp,
+            source=source,
+            data=latest,
+        ).model_dump()
 
         subs = self.get_channel_subscribers("realtime")
         await self.broadcast("realtime", message)

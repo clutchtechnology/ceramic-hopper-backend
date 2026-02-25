@@ -107,7 +107,7 @@ def _load_db_mappings() -> List[Tuple[int, int]]:
     config_path = get_config_path("configs/db_mappings.yaml")
     
     if not config_path.exists():
-        print(f"⚠️  配置文件不存在: {config_path}，使用默认配置")
+        print(f"  配置文件不存在: {config_path}，使用默认配置")
         # 使用 .env 中的配置
         _poll_interval = settings.plc_poll_interval
         _batch_size = settings.batch_write_size
@@ -190,7 +190,7 @@ def _init_parsers():
             _parsers[db_number] = parser_classes[parser_class_name]()
             print(f"   ✅ DB{db_number} -> {parser_class_name}")
         else:
-            print(f"   ⚠️  未知的解析器类: {parser_class_name}")
+            print(f"     未知的解析器类: {parser_class_name}")
 
 
 # ============================================================

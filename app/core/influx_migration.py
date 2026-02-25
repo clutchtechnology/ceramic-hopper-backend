@@ -219,7 +219,7 @@ class InfluxDBMigration:
         # 3. 创建保留策略 Bucket
         print("\n3️⃣  创建保留策略...")
         if not self.create_retention_policies():
-            print("  ⚠️  保留策略创建失败，使用默认策略")
+            print("    保留策略创建失败，使用默认策略")
         
         # 4. 创建连续查询（可选）
         print("\n4️⃣  创建连续查询...")

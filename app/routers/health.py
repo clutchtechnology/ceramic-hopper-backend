@@ -130,8 +130,8 @@ async def get_latest_timestamp():
         timestamp_utc: UTC时间戳
     """
     try:
-        from app.services.history_query_service import HistoryQueryService
-        service = HistoryQueryService()
+        from app.services.history_query_service import get_history_service
+        service = get_history_service()
         latest_time = service.get_latest_db_timestamp()
         
         if latest_time:

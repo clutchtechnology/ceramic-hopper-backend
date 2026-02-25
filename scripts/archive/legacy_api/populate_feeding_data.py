@@ -63,7 +63,7 @@ def populate_feeding_data():
                     })
             
             if not points:
-                print(f"   ⚠️ 无历史重量数据，跳过")
+                print(f"    无历史重量数据，跳过")
                 continue
                 
             print(f"   📊 找到 {len(points)} 条重量记录，正在分析投料事件...")

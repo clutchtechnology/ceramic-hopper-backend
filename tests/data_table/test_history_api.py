@@ -441,7 +441,7 @@ def main():
     
     # 问题诊断
     if summary['empty_data'] > 0 or summary['failed'] > 0:
-        print("\n⚠️  发现问题:")
+        print("\n  发现问题:")
         if summary['empty_data'] > 0:
             print(f"   - {summary['empty_data']}个API返回成功但数据为空")
             print("     可能原因: 模拟轮询服务运行时间不足120秒，或时间范围参数问题")

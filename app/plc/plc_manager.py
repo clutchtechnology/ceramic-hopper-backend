@@ -182,7 +182,7 @@ class PLCManager:
         with self._rw_lock:
             # 🔧 检查连续错误，强制重连
             if self._consecutive_error_count >= self._max_consecutive_errors:
-                print(f"⚠️ 连续 {self._consecutive_error_count} 次错误，强制重连 PLC...")
+                print(f" 连续 {self._consecutive_error_count} 次错误，强制重连 PLC...")
                 self._disconnect_internal()
                 self._consecutive_error_count = 0
             
@@ -215,7 +215,7 @@ class PLCManager:
                     
                     # 尝试重连（优化：增加重试延迟，避免频繁重连）
                     if attempt < self._max_reconnect_attempts - 1:
-                        print(f"⚠️ DB{db_number} 读取失败 (尝试 {attempt+1}/{self._max_reconnect_attempts}): {e}")
+                        print(f" DB{db_number} 读取失败 (尝试 {attempt+1}/{self._max_reconnect_attempts}): {e}")
                         self._disconnect_internal()
                         time.sleep(self._retry_delay)  # 使用配置的重试延迟
                         success, _ = self._connect_internal()

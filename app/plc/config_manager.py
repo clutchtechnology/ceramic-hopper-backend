@@ -104,7 +104,7 @@ class PLCConfigManager:
         
         # 兼容空配置文件（使用新的模块化配置系统）
         if raw_config is None or not isinstance(raw_config, dict):
-            print("⚠️  使用新的模块化配置系统 (plc_modules.yaml)")
+            print("  使用新的模块化配置系统 (plc_modules.yaml)")
             return
         
         # 解析每个设备的配置
@@ -131,7 +131,7 @@ class PLCConfigManager:
                     )
                     data_points.append(data_point)
                 except Exception as e:
-                    print(f"⚠️  解析数据点失败: {point_data.get('name', 'unknown')} - {e}")
+                    print(f"  解析数据点失败: {point_data.get('name', 'unknown')} - {e}")
             
             # 创建设备配置
             self.config[device_key] = DeviceConfig(

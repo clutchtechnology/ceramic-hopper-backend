@@ -79,7 +79,7 @@ PLC_POLL_INTERVAL=5
 
 ```bash
 # Windows
-start_mock.bat
+python main.py
 
 # Linux/Mac
 python main.py
@@ -88,20 +88,14 @@ python main.py
 #### 生产模式 (连接真实 PLC)
 
 ```bash
-# Windows
-start_production.bat
-
-# Linux/Mac
-mock_mode=false python main.py
+# Windows / Linux / Mac
+MOCK_MODE=false python main.py
 ```
 
 ### 5. 测试 WebSocket
 
 ```bash
-# 使用 Python 测试脚本
-python test_websocket.py
-
-# 或使用 websocat
+# 使用 websocat
 websocat ws://localhost:8080/ws/realtime
 ```
 
@@ -162,9 +156,8 @@ websocat ws://localhost:8080/ws/realtime
 ceramic-hopper-backend/
 ├── main.py                           # 应用入口
 ├── config.py                         # 全局配置
-├── start_mock.bat                    # Mock 模式启动脚本
-├── start_production.bat              # 生产模式启动脚本
-├── test_websocket.py                 # WebSocket 测试脚本
+├── scripts/start.ps1                 # Windows 启动脚本
+├── scripts/start.sh                  # Linux 启动脚本
 ├── configs/                          # 配置文件
 │   ├── config_hopper_4.yaml          # 料仓设备配置
 │   ├── db_mappings.yaml              # DB 块映射

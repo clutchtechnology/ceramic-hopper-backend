@@ -40,7 +40,7 @@ class HeartbeatMessage(BaseModel):
 class ModuleData(BaseModel):
     """模块数据"""
     module_type: str = Field(..., description="模块类型")
-    fields: Dict[str, float] = Field(default_factory=dict, description="字段数据")
+    fields: Dict[str, Any] = Field(default_factory=dict, description="字段数据")
 
 
 class HopperDeviceData(BaseModel):

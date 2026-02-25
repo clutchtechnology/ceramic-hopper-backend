@@ -214,7 +214,7 @@ def create_app() -> FastAPI:
     # 注册路由
     app.include_router(health.router)
     app.include_router(hopper_4.router)
-    app.include_router(alarms.router, prefix="/api/alarms", tags=["报警管理"])
+    app.include_router(alarms.router, prefix="/api", tags=["报警管理"])
     app.include_router(config.router, prefix="/api/config", tags=["系统配置"])
     app.include_router(websocket.router, prefix="/ws", tags=["WebSocket"])
     

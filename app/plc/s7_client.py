@@ -132,7 +132,7 @@ class S7Client:
                     raise Exception(f"读取DB{db_number}失败（已重试{self._max_retry_attempts}次）: {e}")
                 
                 # 重试前断开连接，等待后重连
-                print(f"⚠️ DB{db_number} 读取失败（尝试 {attempt+1}/{self._max_retry_attempts}）: {e}")
+                print(f" DB{db_number} 读取失败（尝试 {attempt+1}/{self._max_retry_attempts}）: {e}")
                 self._connected = False
                 time.sleep(self._retry_delay)
     
@@ -192,7 +192,7 @@ def get_s7_client() -> S7Client:
                 try:
                     _s7_client.connect()
                 except Exception as e:
-                    print(f"⚠️ 初始化 PLC 连接失败: {e}")
+                    print(f" 初始化 PLC 连接失败: {e}")
     return _s7_client
 
 
@@ -243,7 +243,7 @@ def update_s7_client(ip: str = None, rack: int = None, slot: int = None, timeout
     try:
         _s7_client.connect()
     except Exception as e:
-        print(f"⚠️ 更新 PLC 连接失败: {e}")
+        print(f" 更新 PLC 连接失败: {e}")
     
     return _s7_client
 

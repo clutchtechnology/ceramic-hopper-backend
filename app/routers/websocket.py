@@ -12,9 +12,15 @@ import logging
 from datetime import datetime, timezone
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
+from pydantic import ValidationError
 
 from app.services.ws_manager import get_ws_manager
-from app.models.ws_messages import ErrorCode
+from app.models.ws_messages import (
+    ErrorCode,
+    SubscribeMessage,
+    UnsubscribeMessage,
+    HeartbeatMessage,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -62,7 +68,17 @@ async def websocket_endpoint(websocket: WebSocket):
 
             # 处理订阅
             if msg_type == "subscribe":
-                channel = data.get("channel")
+                try:
+                    subscribe_msg = SubscribeMessage.model_validate(data)
+                except ValidationError:
+                    await manager.send_personal(websocket, {
+                        "type": "error",
+                        "code": ErrorCode.INVALID_MESSAGE,
+                        "message": "subscribe 消息格式错误",
+                    })
+                    continue
+
+                channel = subscribe_msg.channel
                 logger.info(f"[WS] 收到订阅请求: {channel}")
                 if not manager.subscribe(websocket, channel):
                     await manager.send_personal(websocket, {
@@ -73,11 +89,31 @@ async def websocket_endpoint(websocket: WebSocket):
 
             # 处理取消订阅
             elif msg_type == "unsubscribe":
-                channel = data.get("channel")
+                try:
+                    unsubscribe_msg = UnsubscribeMessage.model_validate(data)
+                except ValidationError:
+                    await manager.send_personal(websocket, {
+                        "type": "error",
+                        "code": ErrorCode.INVALID_MESSAGE,
+                        "message": "unsubscribe 消息格式错误",
+                    })
+                    continue
+
+                channel = unsubscribe_msg.channel
                 manager.unsubscribe(websocket, channel)
 
             # 处理心跳
             elif msg_type == "heartbeat":
+                try:
+                    HeartbeatMessage.model_validate(data)
+                except ValidationError:
+                    await manager.send_personal(websocket, {
+                        "type": "error",
+                        "code": ErrorCode.INVALID_MESSAGE,
+                        "message": "heartbeat 消息格式错误",
+                    })
+                    continue
+
                 manager.update_heartbeat(websocket)
                 await manager.send_personal(websocket, {
                     "type": "heartbeat",

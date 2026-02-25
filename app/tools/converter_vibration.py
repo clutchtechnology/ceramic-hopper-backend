@@ -5,9 +5,9 @@
 #
 # 精度模式 (由 .env 的 VIB_HIGH_PRECISION 控制):
 #   低精度 (false): V/D/HZ 均直接使用 PLC 原始值
-#   高精度 (true):  V = 原始值 (mm/s)
-#                   D = 原始值 / 100 (um)
-#                   HZ = 原始值 (Hz)
+#   高精度 (true):  V = 原始值 / 100 (mm/s)
+#                   D = 原始值 (um)
+#                   HZ = 原始值 / 10 (Hz)
 # ============================================================
 
 import logging
@@ -63,7 +63,7 @@ class VibrationConverter(BaseConverter):
         """转换振动三组核心数据
         
         低精度: V/D/HZ 均直接使用原始值
-        高精度: V = 原始值, D = 原始值/100, HZ = 原始值
+        高精度: V = 原始值/100, D = 原始值, HZ = 原始值/10
         """
         fields: Dict[str, Any] = {}
 
@@ -73,20 +73,21 @@ class VibrationConverter(BaseConverter):
                 value = float(value) / divisor
                 fields[output_key] = self._validate(value, range_key, decimals)
 
-        # 1. 速度幅值 (mm/s) - 直接使用原始值
-        _set("vx", "VX", "velocity", 2)
-        _set("vy", "VY", "velocity", 2)
-        _set("vz", "VZ", "velocity", 2)
+        # 1. 速度幅值 (mm/s) - 高精度模式: /100
+        v_divisor = 100.0 if self._high_precision else 1.0
+        _set("vx", "VX", "velocity", 2, v_divisor)
+        _set("vy", "VY", "velocity", 2, v_divisor)
+        _set("vz", "VZ", "velocity", 2, v_divisor)
         
-        # 2. 位移幅值 (um) - 高精度模式: /100
-        d_divisor = 100.0 if self._high_precision else 1.0
-        _set("dx", "DX", "displacement", 2, d_divisor)
-        _set("dy", "DY", "displacement", 2, d_divisor)
-        _set("dz", "DZ", "displacement", 2, d_divisor)
+        # 2. 位移幅值 (um) - 保持原始值
+        _set("dx", "DX", "displacement", 2)
+        _set("dy", "DY", "displacement", 2)
+        _set("dz", "DZ", "displacement", 2)
         
-        # 3. 频率 (Hz) - 直接使用原始值
-        _set("hzx", "HZX", "frequency", 1)
-        _set("hzy", "HZY", "frequency", 1)
-        _set("hzz", "HZZ", "frequency", 1)
+        # 3. 频率 (Hz) - 高精度模式: /10
+        hz_divisor = 10.0 if self._high_precision else 1.0
+        _set("hzx", "HZX", "frequency", 1, hz_divisor)
+        _set("hzy", "HZY", "frequency", 1, hz_divisor)
+        _set("hzz", "HZZ", "frequency", 1, hz_divisor)
 
         return fields
