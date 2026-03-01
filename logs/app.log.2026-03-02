@@ -1,0 +1,577 @@
+2026-03-02 02:02:49 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 02:02:49 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 02:02:49 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 02:02:49 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 02:02:50 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 21268)
+2026-03-02 02:02:52 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 02:02:52 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 02:02:52 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 02:02:52 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 02:02:52 [INFO] main: Starting hopper backend...
+2026-03-02 02:02:52 [INFO] main: [启动] 初始化配置...
+2026-03-02 02:02:52 [INFO] main: [启动] 配置加载完成
+2026-03-02 02:02:52 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 02:03:00 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 02:03:01 [INFO] snap7.client: creating snap7 client
+2026-03-02 02:03:01 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:05 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:05 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 02:03:05 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 02:03:05 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 02:03:05 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:10 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:10 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:15 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:16 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:21 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:21 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:26 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:26 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:31 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:31 [INFO] snap7.client: connecting to 192.168.50.235:102 rack 0 slot 1
+2026-03-02 02:03:36 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 02:03:36 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 02:03:36 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 02:03:36 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 02:03:36 [ERROR] snap7.common: b' TCP : Unreachable peer'
+2026-03-02 02:03:37 [INFO] scripts.tray_app: 已杀死占用端口 8082 的进程: 21268(python.exe)
+2026-03-02 02:03:38 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 39516)
+2026-03-02 02:03:40 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 02:03:40 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 02:03:40 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 02:03:40 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 02:03:40 [INFO] main: Starting hopper backend...
+2026-03-02 02:03:40 [INFO] main: [启动] 初始化配置...
+2026-03-02 02:03:40 [INFO] main: [启动] 配置加载完成
+2026-03-02 02:03:40 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 02:03:48 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 02:03:48 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 02:03:48 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 02:03:48 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 02:03:48 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-03-02 02:04:50 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 02:04:50 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 02:04:50 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 02:04:50 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 02:04:51 [INFO] scripts.tray_app: 已杀死占用端口 8082 的进程: 39516(python.exe)
+2026-03-02 02:04:52 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 29816)
+2026-03-02 02:05:02 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 02:05:02 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 02:05:02 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 02:05:02 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 02:05:02 [INFO] main: Starting hopper backend...
+2026-03-02 02:05:02 [INFO] main: [启动] 初始化配置...
+2026-03-02 02:05:02 [INFO] main: [启动] 配置加载完成
+2026-03-02 02:05:02 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 02:05:11 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 02:05:11 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 02:05:11 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 02:05:11 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 02:05:11 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-03-02 02:13:10 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:13:11 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:13:11 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:13:11 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:13:11 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:13:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:14:01 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:14:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:14:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:15:17 [INFO] app.services.ws_manager: [WS] 推送统计: 第250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:15:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:16:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:16:19 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 2
+2026-03-02 02:16:19 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:16:19 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 2
+2026-03-02 02:16:19 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:16:19 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 2
+2026-03-02 02:16:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第400次, 订阅者=2, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:16:44 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:16:44 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 1
+2026-03-02 02:16:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:17:10 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:17:10 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 02:23:29 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:23:29 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:23:29 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:23:29 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:23:29 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:23:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:24:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:24:33 [INFO] app.services.ws_manager: [WS] 推送统计: 第600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:24:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:25:24 [INFO] app.services.ws_manager: [WS] 推送统计: 第700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:25:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:26:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:26:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:27:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:27:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:27:56 [INFO] app.services.ws_manager: [WS] 推送统计: 第1000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:28:23 [INFO] app.services.ws_manager: [WS] 推送统计: 第1050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:28:48 [INFO] app.services.ws_manager: [WS] 推送统计: 第1100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:29:14 [INFO] app.services.ws_manager: [WS] 推送统计: 第1150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:29:39 [INFO] app.services.ws_manager: [WS] 推送统计: 第1200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:30:05 [INFO] app.services.ws_manager: [WS] 推送统计: 第1250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:30:30 [INFO] app.services.ws_manager: [WS] 推送统计: 第1300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:30:34 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:30:34 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 02:31:22 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:31:22 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:31:22 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:31:22 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:31:22 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:31:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第1350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:32:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第1400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:32:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第1450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:32:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第1500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:33:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第1550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:33:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第1600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:34:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第1650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:34:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第1700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:35:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第1750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:35:12 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 02:35:12 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:35:12 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: 无)，剩余连接数: 0
+2026-03-02 02:35:43 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:35:43 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:35:43 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:35:43 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:35:43 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:36:00 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:36:00 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 02:40:04 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:40:04 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:40:04 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:40:04 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:40:04 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:40:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第1800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:40:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第1850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:40:57 [INFO] app.services.ws_manager: [WS] 推送统计: 第1900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:41:03 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:41:03 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 02:52:10 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:52:10 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:52:10 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:52:10 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:52:10 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:52:28 [INFO] app.services.ws_manager: [WS] 推送统计: 第1950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:52:54 [INFO] app.services.ws_manager: [WS] 推送统计: 第2000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:53:13 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:53:13 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 02:57:08 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 02:57:08 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:57:08 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:57:08 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:57:08 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:57:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第2050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:57:16 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 02:57:16 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 02:57:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第2100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:58:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第2150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:58:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第2200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 02:58:43 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 02:58:43 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 03:02:04 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 03:02:04 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:02:04 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:02:05 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:02:05 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:02:18 [INFO] app.services.ws_manager: [WS] 推送统计: 第2250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:02:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第2300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:03:09 [INFO] app.services.ws_manager: [WS] 推送统计: 第2350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:03:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第2400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:03:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第2450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:04:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第2500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:04:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第2550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:05:16 [INFO] app.services.ws_manager: [WS] 推送统计: 第2600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:05:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第2650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:06:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第2700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:06:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第2750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:06:57 [INFO] app.services.ws_manager: [WS] 推送统计: 第2800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:07:22 [INFO] app.services.ws_manager: [WS] 推送统计: 第2850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:07:48 [INFO] app.services.ws_manager: [WS] 推送统计: 第2900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:08:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第2950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:08:38 [INFO] app.services.ws_manager: [WS] 推送统计: 第3000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:09:04 [INFO] app.services.ws_manager: [WS] 推送统计: 第3050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:09:29 [INFO] app.services.ws_manager: [WS] 推送统计: 第3100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:09:55 [INFO] app.services.ws_manager: [WS] 推送统计: 第3150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:10:20 [INFO] app.services.ws_manager: [WS] 推送统计: 第3200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:10:45 [INFO] app.services.ws_manager: [WS] 推送统计: 第3250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:11:11 [INFO] app.services.ws_manager: [WS] 推送统计: 第3300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:11:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第3350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:12:01 [INFO] app.services.ws_manager: [WS] 推送统计: 第3400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:12:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第3450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:12:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第3500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:13:17 [INFO] app.services.ws_manager: [WS] 推送统计: 第3550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:13:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第3600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:14:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第3650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:14:33 [INFO] app.services.ws_manager: [WS] 推送统计: 第3700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:14:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第3750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:15:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第3800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:15:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第3850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:16:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第3900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:16:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第3950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:17:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第4000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:17:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第4050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:17:57 [INFO] app.services.ws_manager: [WS] 推送统计: 第4100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:18:22 [INFO] app.services.ws_manager: [WS] 推送统计: 第4150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:18:47 [INFO] app.services.ws_manager: [WS] 推送统计: 第4200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:19:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第4250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:19:38 [INFO] app.services.ws_manager: [WS] 推送统计: 第4300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:20:04 [INFO] app.services.ws_manager: [WS] 推送统计: 第4350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:20:29 [INFO] app.services.ws_manager: [WS] 推送统计: 第4400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:20:54 [INFO] app.services.ws_manager: [WS] 推送统计: 第4450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:21:20 [INFO] app.services.ws_manager: [WS] 推送统计: 第4500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:21:45 [INFO] app.services.ws_manager: [WS] 推送统计: 第4550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:22:10 [INFO] app.services.ws_manager: [WS] 推送统计: 第4600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:22:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第4650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:23:01 [INFO] app.services.ws_manager: [WS] 推送统计: 第4700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:23:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第4750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:23:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第4800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:24:17 [INFO] app.services.ws_manager: [WS] 推送统计: 第4850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:24:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第4900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:25:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第4950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:25:33 [INFO] app.services.ws_manager: [WS] 推送统计: 第5000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:25:46 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 03:25:46 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 03:25:46 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 03:25:46 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 03:25:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第5050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:26:24 [INFO] app.services.ws_manager: [WS] 推送统计: 第5100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:26:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第5150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:27:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第5200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:27:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第5250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:28:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第5300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:28:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第5350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:28:56 [INFO] app.services.ws_manager: [WS] 推送统计: 第5400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:29:22 [INFO] app.services.ws_manager: [WS] 推送统计: 第5450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:29:47 [INFO] app.services.ws_manager: [WS] 推送统计: 第5500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:30:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第5550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:30:38 [INFO] app.services.ws_manager: [WS] 推送统计: 第5600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:31:03 [INFO] app.services.ws_manager: [WS] 推送统计: 第5650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:31:29 [INFO] app.services.ws_manager: [WS] 推送统计: 第5700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:31:45 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:31:45 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:31:54 [INFO] app.services.ws_manager: [WS] 推送统计: 第5750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:31:59 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:31:59 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:32:20 [INFO] app.services.ws_manager: [WS] 推送统计: 第5800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:32:45 [INFO] app.services.ws_manager: [WS] 推送统计: 第5850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:33:10 [INFO] app.services.ws_manager: [WS] 推送统计: 第5900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:33:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第5950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:34:01 [INFO] app.services.ws_manager: [WS] 推送统计: 第6000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:34:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第6050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:34:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第6100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:35:18 [INFO] app.services.ws_manager: [WS] 推送统计: 第6150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:35:44 [INFO] app.services.ws_manager: [WS] 推送统计: 第6200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:36:09 [INFO] app.services.ws_manager: [WS] 推送统计: 第6250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:36:35 [INFO] app.services.ws_manager: [WS] 推送统计: 第6300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:37:00 [INFO] app.services.ws_manager: [WS] 推送统计: 第6350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:37:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第6400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:37:51 [INFO] app.services.ws_manager: [WS] 推送统计: 第6450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:38:16 [INFO] app.services.ws_manager: [WS] 推送统计: 第6500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:38:42 [INFO] app.services.ws_manager: [WS] 推送统计: 第6550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:39:07 [INFO] app.services.ws_manager: [WS] 推送统计: 第6600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:39:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第6650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:39:58 [INFO] app.services.ws_manager: [WS] 推送统计: 第6700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:40:23 [INFO] app.services.ws_manager: [WS] 推送统计: 第6750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:40:49 [INFO] app.services.ws_manager: [WS] 推送统计: 第6800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:41:14 [INFO] app.services.ws_manager: [WS] 推送统计: 第6850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:41:39 [INFO] app.services.ws_manager: [WS] 推送统计: 第6900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:42:05 [INFO] app.services.ws_manager: [WS] 推送统计: 第6950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:42:30 [INFO] app.services.ws_manager: [WS] 推送统计: 第7000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:42:55 [INFO] app.services.ws_manager: [WS] 推送统计: 第7050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:43:21 [INFO] app.services.ws_manager: [WS] 推送统计: 第7100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:43:46 [INFO] app.services.ws_manager: [WS] 推送统计: 第7150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:44:11 [INFO] app.services.ws_manager: [WS] 推送统计: 第7200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:44:37 [INFO] app.services.ws_manager: [WS] 推送统计: 第7250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:45:02 [INFO] app.services.ws_manager: [WS] 推送统计: 第7300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:45:28 [INFO] app.services.ws_manager: [WS] 推送统计: 第7350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:45:31 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 03:45:31 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 03:45:31 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: 无)，剩余连接数: 0
+2026-03-02 03:45:41 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 03:45:41 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 03:45:41 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 03:45:41 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 03:45:42 [INFO] scripts.tray_app: 已杀死占用端口 8082 的进程: 29816(python.exe)
+2026-03-02 03:45:43 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 39508)
+2026-03-02 03:45:46 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 03:45:46 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 03:45:46 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 03:45:46 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 03:45:46 [INFO] main: Starting hopper backend...
+2026-03-02 03:45:46 [INFO] main: [启动] 初始化配置...
+2026-03-02 03:45:46 [INFO] main: [启动] 配置加载完成
+2026-03-02 03:45:46 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 03:45:54 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 03:45:54 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 03:45:54 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 03:45:54 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 03:45:54 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-03-02 03:46:11 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 03:46:11 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:46:11 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:46:11 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:46:11 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:46:28 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:46:28 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:46:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:47:02 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:47:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:47:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:48:18 [INFO] app.services.ws_manager: [WS] 推送统计: 第250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:48:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:49:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:49:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:49:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:50:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:50:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:51:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:51:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:52:00 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 03:52:00 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 03:52:00 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 03:52:00 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 03:52:00 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 03:52:00 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 03:52:00 [INFO] scripts.tray_app: 已杀死占用端口 8082 的进程: 39508(python.exe)
+2026-03-02 03:52:01 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 7760)
+2026-03-02 03:52:03 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 03:52:03 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 03:52:03 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 03:52:03 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 03:52:03 [INFO] main: Starting hopper backend...
+2026-03-02 03:52:03 [INFO] main: [启动] 初始化配置...
+2026-03-02 03:52:03 [INFO] main: [启动] 配置加载完成
+2026-03-02 03:52:03 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 03:52:12 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 03:52:12 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 03:52:12 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 03:52:12 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 03:52:12 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-03-02 03:52:38 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 03:52:38 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:52:38 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:52:38 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:52:38 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:53:03 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:53:28 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:53:33 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 03:53:33 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 03:53:54 [INFO] app.services.ws_manager: [WS] 推送统计: 第150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:54:19 [INFO] app.services.ws_manager: [WS] 推送统计: 第200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:54:45 [INFO] app.services.ws_manager: [WS] 推送统计: 第250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:55:10 [INFO] app.services.ws_manager: [WS] 推送统计: 第300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:55:35 [INFO] app.services.ws_manager: [WS] 推送统计: 第350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:56:01 [INFO] app.services.ws_manager: [WS] 推送统计: 第400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:56:26 [INFO] app.services.ws_manager: [WS] 推送统计: 第450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:56:51 [INFO] app.services.ws_manager: [WS] 推送统计: 第500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:57:17 [INFO] app.services.ws_manager: [WS] 推送统计: 第550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:57:42 [INFO] app.services.ws_manager: [WS] 推送统计: 第600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:58:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:58:33 [INFO] app.services.ws_manager: [WS] 推送统计: 第700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:58:58 [INFO] app.services.ws_manager: [WS] 推送统计: 第750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:59:24 [INFO] app.services.ws_manager: [WS] 推送统计: 第800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 03:59:49 [INFO] app.services.ws_manager: [WS] 推送统计: 第850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:00:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:00:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:01:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第1000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:01:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第1050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:01:57 [INFO] app.services.ws_manager: [WS] 推送统计: 第1100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:02:22 [INFO] app.services.ws_manager: [WS] 推送统计: 第1150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:02:48 [INFO] app.services.ws_manager: [WS] 推送统计: 第1200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:02:51 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 04:02:51 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 04:02:51 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 04:02:51 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 04:02:51 [INFO] main: Starting hopper backend...
+2026-03-02 04:02:51 [INFO] main: [启动] 初始化配置...
+2026-03-02 04:02:51 [INFO] main: [启动] 配置加载完成
+2026-03-02 04:02:51 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 04:02:59 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 04:03:00 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 04:03:00 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 04:03:00 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 04:03:00 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-03-02 04:03:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第1250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:03:39 [INFO] app.services.ws_manager: [WS] 推送统计: 第1300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:04:04 [INFO] app.services.ws_manager: [WS] 推送统计: 第1350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:04:29 [INFO] app.services.ws_manager: [WS] 推送统计: 第1400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:04:55 [INFO] app.services.ws_manager: [WS] 推送统计: 第1450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:05:20 [INFO] app.services.ws_manager: [WS] 推送统计: 第1500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:05:46 [INFO] app.services.ws_manager: [WS] 推送统计: 第1550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:06:11 [INFO] app.services.ws_manager: [WS] 推送统计: 第1600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:06:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第1650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:07:02 [INFO] app.services.ws_manager: [WS] 推送统计: 第1700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:07:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第1750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:07:52 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 04:07:52 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 04:07:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第1800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:08:18 [INFO] app.services.ws_manager: [WS] 推送统计: 第1850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:08:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第1900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:09:09 [INFO] app.services.ws_manager: [WS] 推送统计: 第1950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:09:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第2000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:10:00 [INFO] app.services.ws_manager: [WS] 推送统计: 第2050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:10:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第2100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:10:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第2150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:11:16 [INFO] app.services.ws_manager: [WS] 推送统计: 第2200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:11:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第2250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:12:07 [INFO] app.services.ws_manager: [WS] 推送统计: 第2300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:12:28 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 04:12:28 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 04:12:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第2350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:12:58 [INFO] app.services.ws_manager: [WS] 推送统计: 第2400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:13:23 [INFO] app.services.ws_manager: [WS] 推送统计: 第2450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:13:49 [INFO] app.services.ws_manager: [WS] 推送统计: 第2500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:14:14 [INFO] app.services.ws_manager: [WS] 推送统计: 第2550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:14:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第2600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:15:05 [INFO] app.services.ws_manager: [WS] 推送统计: 第2650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:15:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第2700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:15:39 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 04:15:39 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 04:15:56 [INFO] app.services.ws_manager: [WS] 推送统计: 第2750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:16:22 [INFO] app.services.ws_manager: [WS] 推送统计: 第2800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:16:47 [INFO] app.services.ws_manager: [WS] 推送统计: 第2850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:17:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第2900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:17:38 [INFO] app.services.ws_manager: [WS] 推送统计: 第2950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:18:04 [INFO] app.services.ws_manager: [WS] 推送统计: 第3000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:18:29 [INFO] app.services.ws_manager: [WS] 推送统计: 第3050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:18:55 [INFO] app.services.ws_manager: [WS] 推送统计: 第3100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:19:20 [INFO] app.services.ws_manager: [WS] 推送统计: 第3150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:19:46 [INFO] app.services.ws_manager: [WS] 推送统计: 第3200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:20:11 [INFO] app.services.ws_manager: [WS] 推送统计: 第3250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:20:36 [INFO] app.services.ws_manager: [WS] 推送统计: 第3300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:21:02 [INFO] app.services.ws_manager: [WS] 推送统计: 第3350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:21:27 [INFO] app.services.ws_manager: [WS] 推送统计: 第3400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:21:53 [INFO] app.services.ws_manager: [WS] 推送统计: 第3450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:22:18 [INFO] app.services.ws_manager: [WS] 推送统计: 第3500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:22:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第3550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:23:09 [INFO] app.services.ws_manager: [WS] 推送统计: 第3600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:23:35 [INFO] app.services.ws_manager: [WS] 推送统计: 第3650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:24:00 [INFO] app.services.ws_manager: [WS] 推送统计: 第3700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:24:26 [INFO] app.services.ws_manager: [WS] 推送统计: 第3750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:24:51 [INFO] app.services.ws_manager: [WS] 推送统计: 第3800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:25:17 [INFO] app.services.ws_manager: [WS] 推送统计: 第3850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:25:42 [INFO] app.services.ws_manager: [WS] 推送统计: 第3900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:26:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第3950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:26:33 [INFO] app.services.ws_manager: [WS] 推送统计: 第4000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:26:58 [INFO] app.services.ws_manager: [WS] 推送统计: 第4050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:27:24 [INFO] app.services.ws_manager: [WS] 推送统计: 第4100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:27:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第4150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:28:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第4200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:28:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第4250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:29:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第4300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:29:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第4350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:29:57 [INFO] app.services.ws_manager: [WS] 推送统计: 第4400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:30:23 [INFO] app.services.ws_manager: [WS] 推送统计: 第4450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:30:48 [INFO] app.services.ws_manager: [WS] 推送统计: 第4500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:31:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第4550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:31:39 [INFO] app.services.ws_manager: [WS] 推送统计: 第4600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:32:04 [INFO] app.services.ws_manager: [WS] 推送统计: 第4650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:32:30 [INFO] app.services.ws_manager: [WS] 推送统计: 第4700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:32:55 [INFO] app.services.ws_manager: [WS] 推送统计: 第4750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:33:21 [INFO] app.services.ws_manager: [WS] 推送统计: 第4800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:33:46 [INFO] app.services.ws_manager: [WS] 推送统计: 第4850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:34:11 [INFO] app.services.ws_manager: [WS] 推送统计: 第4900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:34:37 [INFO] app.services.ws_manager: [WS] 推送统计: 第4950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:35:02 [INFO] app.services.ws_manager: [WS] 推送统计: 第5000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:35:28 [INFO] app.services.ws_manager: [WS] 推送统计: 第5050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:35:53 [INFO] app.services.ws_manager: [WS] 推送统计: 第5100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:36:18 [INFO] app.services.ws_manager: [WS] 推送统计: 第5150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:36:44 [INFO] app.services.ws_manager: [WS] 推送统计: 第5200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:37:09 [INFO] app.services.ws_manager: [WS] 推送统计: 第5250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:37:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第5300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:38:00 [INFO] app.services.ws_manager: [WS] 推送统计: 第5350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:38:25 [INFO] app.services.ws_manager: [WS] 推送统计: 第5400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:38:51 [INFO] app.services.ws_manager: [WS] 推送统计: 第5450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:39:16 [INFO] app.services.ws_manager: [WS] 推送统计: 第5500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:39:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第5550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:40:07 [INFO] app.services.ws_manager: [WS] 推送统计: 第5600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:40:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第5650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:40:58 [INFO] app.services.ws_manager: [WS] 推送统计: 第5700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:41:23 [INFO] app.services.ws_manager: [WS] 推送统计: 第5750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:41:49 [INFO] app.services.ws_manager: [WS] 推送统计: 第5800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:42:14 [INFO] app.services.ws_manager: [WS] 推送统计: 第5850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:42:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第5900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:43:05 [INFO] app.services.ws_manager: [WS] 推送统计: 第5950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 04:43:28 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 04:43:28 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 05:18:58 [INFO] scripts.tray_app: 已杀死进程: 31492(conhost.exe), 7760(python.exe)
+2026-03-02 05:18:58 [INFO] scripts.tray_app: 退出程序: 已停止所有进程: 31492(conhost.exe), 7760(python.exe)
+2026-03-02 05:27:34 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 05:27:34 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 05:27:34 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 05:27:34 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 05:27:34 [INFO] scripts.tray_app: 自动启动服务: 服务已启动 (PID 10116)
+2026-03-02 05:27:37 [INFO] root: [日志系统] 日志目录: C:\Users\20216\Documents\GitHub\Clutch\ceramic-hopper-backend\logs
+2026-03-02 05:27:37 [INFO] root: [日志系统] 当前日志文件: app.log.2026-03-02
+2026-03-02 05:27:37 [INFO] root: [日志系统] 日志轮转: 每天午夜自动创建新文件
+2026-03-02 05:27:37 [INFO] root: [日志系统] 保留策略: 最近 30 天，总大小不超过 50GB
+2026-03-02 05:27:37 [INFO] main: Starting hopper backend...
+2026-03-02 05:27:37 [INFO] main: [启动] 初始化配置...
+2026-03-02 05:27:37 [INFO] main: [启动] 配置加载完成
+2026-03-02 05:27:37 [INFO] main: 
+[启动] 检查 InfluxDB Schema...
+2026-03-02 05:27:45 [INFO] main: [启动] InfluxDB 迁移失败，但服务继续启动
+
+2026-03-02 05:27:45 [INFO] main: [启动] 轮询服务已启动
+2026-03-02 05:27:45 [INFO] app.services.ws_manager: [WS] 推送任务已启动 (事件驱动, 心跳超时: 45s)
+2026-03-02 05:27:45 [INFO] main: [启动] WebSocket 推送任务已启动
+2026-03-02 05:27:46 [INFO] app.tools.converter_vibration: [VibrationConverter] 精度模式: 低精度
+2026-03-02 05:28:03 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 05:28:03 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 05:28:03 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 05:28:03 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 05:28:03 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 05:28:28 [INFO] app.services.ws_manager: [WS] 推送统计: 第50次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:28:53 [INFO] app.services.ws_manager: [WS] 推送统计: 第100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:29:19 [INFO] app.services.ws_manager: [WS] 推送统计: 第150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:29:44 [INFO] app.services.ws_manager: [WS] 推送统计: 第200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:30:10 [INFO] app.services.ws_manager: [WS] 推送统计: 第250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:30:35 [INFO] app.services.ws_manager: [WS] 推送统计: 第300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:31:01 [INFO] app.services.ws_manager: [WS] 推送统计: 第350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:31:26 [INFO] app.services.ws_manager: [WS] 推送统计: 第400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:31:52 [INFO] app.services.ws_manager: [WS] 推送统计: 第450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:32:17 [INFO] app.services.ws_manager: [WS] 推送统计: 第500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:32:43 [INFO] app.services.ws_manager: [WS] 推送统计: 第550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:33:08 [INFO] app.services.ws_manager: [WS] 推送统计: 第600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:33:34 [INFO] app.services.ws_manager: [WS] 推送统计: 第650次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:33:59 [INFO] app.services.ws_manager: [WS] 推送统计: 第700次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:34:24 [INFO] app.services.ws_manager: [WS] 推送统计: 第750次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:34:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第800次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:35:16 [INFO] app.services.ws_manager: [WS] 推送统计: 第850次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:35:41 [INFO] app.services.ws_manager: [WS] 推送统计: 第900次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:36:07 [INFO] app.services.ws_manager: [WS] 推送统计: 第950次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:36:32 [INFO] app.services.ws_manager: [WS] 推送统计: 第1000次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:36:58 [INFO] app.services.ws_manager: [WS] 推送统计: 第1050次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:37:23 [INFO] app.services.ws_manager: [WS] 推送统计: 第1100次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:37:50 [INFO] app.services.ws_manager: [WS] 推送统计: 第1150次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:38:15 [INFO] app.services.ws_manager: [WS] 推送统计: 第1200次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:38:40 [INFO] app.services.ws_manager: [WS] 推送统计: 第1250次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:39:06 [INFO] app.services.ws_manager: [WS] 推送统计: 第1300次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:39:31 [INFO] app.services.ws_manager: [WS] 推送统计: 第1350次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:39:57 [INFO] app.services.ws_manager: [WS] 推送统计: 第1400次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:40:22 [INFO] app.services.ws_manager: [WS] 推送统计: 第1450次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:40:47 [INFO] app.services.ws_manager: [WS] 推送统计: 第1500次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:41:13 [INFO] app.services.ws_manager: [WS] 推送统计: 第1550次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock
+2026-03-02 05:41:32 [INFO] app.routers.websocket: [WS] 客户端主动断开连接
+2026-03-02 05:41:32 [INFO] app.services.ws_manager: [WS] 连接断开 (订阅频道: {'realtime'})，剩余连接数: 0
+2026-03-02 05:48:58 [INFO] app.services.ws_manager: [WS] 新连接建立 (来自 127.0.0.1)，当前连接数: 1
+2026-03-02 05:48:58 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 05:48:58 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 05:48:58 [INFO] app.routers.websocket: [WS] 收到订阅请求: realtime
+2026-03-02 05:48:58 [INFO] app.services.ws_manager: [WS] 客户端订阅频道: realtime, 当前该频道订阅数: 1
+2026-03-02 05:49:05 [INFO] app.services.ws_manager: [WS] 推送统计: 第1600次, 订阅者=1, 设备=['hopper_unit_4', 'hopper_vib_6'], 模块=['pm10', 'temperature', 'electricity'], source=mock

@@ -27,6 +27,7 @@ from app.plc.plc_manager import get_plc_manager
 from app.plc.parser_hopper_4 import Hopper4Parser
 from app.plc.parser_vib_db6 import VibDB6Parser
 from app.tools import get_converter, CONVERTER_MAP
+from app.services.alarm_checker import check_device_alarm
 
 settings = get_settings()
 
@@ -562,6 +563,13 @@ def _update_latest_data(device_data: Dict[str, Any], db_number: int, timestamp: 
             "timestamp": timestamp.isoformat(),
             "modules": modules_data
         }
+
+    check_device_alarm(
+        device_id=device_id,
+        device_type=device_type,
+        modules_data=modules_data,
+        timestamp=timestamp,
+    )
 
 
 # ============================================================

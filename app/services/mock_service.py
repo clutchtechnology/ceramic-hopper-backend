@@ -7,6 +7,7 @@ Mock 数据生成服务 - 料仓监控系统
 import random
 from datetime import datetime
 from typing import Dict, Any
+from config import get_settings
 
 
 class MockService:
@@ -20,6 +21,25 @@ class MockService:
             料仓设备数据字典
         """
         timestamp = datetime.now().isoformat()
+        settings = get_settings()
+
+        # 1. 速度/频率在高精度模式下会额外缩放：
+        #    速度 = raw / 100, 频率 = raw / 10
+        #    为了确保无论精度模式如何都能触发报警，按模式生成不同原始值。
+        if settings.vib_high_precision:
+            speed_x_raw = 1200.0  # -> 12.0 mm/s (> 10)
+            speed_y_raw = 1300.0
+            speed_z_raw = 1250.0
+            freq_x_raw = 650.0    # -> 65.0 Hz (> 60)
+            freq_y_raw = 670.0
+            freq_z_raw = 660.0
+        else:
+            speed_x_raw = 12.0    # 直接使用原始值 (> 10)
+            speed_y_raw = 13.0
+            speed_z_raw = 12.5
+            freq_x_raw = 65.0     # 直接使用原始值 (> 60)
+            freq_y_raw = 67.0
+            freq_z_raw = 66.0
         
         # 1. 生成 4号料仓数据 - DB4 (PM10/温度/电表)
         hopper_data = {
@@ -33,30 +53,32 @@ class MockService:
                     "pm10": {
                         "module_type": "pm10",
                         "fields": {
-                            "PM10": {"value": round(random.uniform(30.0, 80.0), 1)}
+                            # 报警阈值 alarm_max=150
+                            "PM10": {"value": round(random.uniform(180.0, 230.0), 1)}
                         }
                     },
                     # 温度传感器 (raw * 0.1 = C)
                     "temperature": {
                         "module_type": "temperature",
                         "fields": {
-                            "Temperature": {"value": random.randint(200, 350)}
+                            # 报警阈值 alarm_max=80 -> raw > 800
+                            "Temperature": {"value": random.randint(900, 1050)}
                         }
                     },
                     # 三相电表 (PLC原始值)
                     "electricity": {
                         "module_type": "electricity",
                         "fields": {
-                            # 电压 raw * 0.1 = V (3750~3850 -> 375~385V)
-                            "Ua_0": {"value": random.randint(3750, 3850)},
-                            "Ua_1": {"value": random.randint(3750, 3850)},
-                            "Ua_2": {"value": random.randint(3750, 3850)},
-                            # 电流 raw * 0.001 * 20 = A (500~750 -> 10~15A)
-                            "I_0": {"value": random.randint(500, 750)},
-                            "I_1": {"value": random.randint(500, 750)},
-                            "I_2": {"value": random.randint(500, 750)},
-                            # 功率 raw * 0.001 * 20 = kW (225~325 -> 4.5~6.5kW)
-                            "Pt": {"value": random.randint(225, 325)},
+                            # 电压报警阈值 420V -> raw > 4200
+                            "Ua_0": {"value": random.randint(4300, 4500)},
+                            "Ua_1": {"value": random.randint(4300, 4500)},
+                            "Ua_2": {"value": random.randint(4300, 4500)},
+                            # 电流报警阈值 80A, 计算: raw*0.001*20 -> raw > 4000
+                            "I_0": {"value": random.randint(4200, 4600)},
+                            "I_1": {"value": random.randint(4200, 4600)},
+                            "I_2": {"value": random.randint(4200, 4600)},
+                            # 功率报警阈值 15kW, 计算: raw*0.001*20 -> raw > 750
+                            "Pt": {"value": random.randint(900, 1100)},
                             # 能耗 raw * 2 = kWh (500~1000 -> 1000~2000kWh)
                             "ImpEp": {"value": random.randint(500, 1000)},
                         }
@@ -73,18 +95,18 @@ class MockService:
                     "vibration": {
                         "module_type": "vibration",
                         "fields": {
-                            # 速度幅值 (mm/s)
-                            "VX": {"value": round(random.uniform(1.5, 3.0), 2)},
-                            "VY": {"value": round(random.uniform(1.5, 3.0), 2)},
-                            "VZ": {"value": round(random.uniform(1.0, 2.5), 2)},
-                            # 位移幅值 (um)
-                            "DX": {"value": round(random.uniform(30.0, 60.0), 2)},
-                            "DY": {"value": round(random.uniform(30.0, 60.0), 2)},
-                            "DZ": {"value": round(random.uniform(25.0, 55.0), 2)},
-                            # 频率 (Hz)
-                            "HZX": {"value": round(random.uniform(48.0, 52.0), 1)},
-                            "HZY": {"value": round(random.uniform(48.0, 52.0), 1)},
-                            "HZZ": {"value": round(random.uniform(48.0, 52.0), 1)},
+                            # 速度报警阈值 10
+                            "VX": {"value": speed_x_raw},
+                            "VY": {"value": speed_y_raw},
+                            "VZ": {"value": speed_z_raw},
+                            # 位移报警阈值 500
+                            "DX": {"value": round(random.uniform(530.0, 580.0), 2)},
+                            "DY": {"value": round(random.uniform(530.0, 580.0), 2)},
+                            "DZ": {"value": round(random.uniform(530.0, 580.0), 2)},
+                            # 频率报警阈值 60
+                            "HZX": {"value": freq_x_raw},
+                            "HZY": {"value": freq_y_raw},
+                            "HZZ": {"value": freq_z_raw},
                         }
                     }
                 }

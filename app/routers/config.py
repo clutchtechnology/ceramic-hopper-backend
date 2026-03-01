@@ -4,12 +4,13 @@
 # 接口列表:
 # 1. GET /server            - 获取服务器配置
 # 2. GET /plc               - 获取PLC配置
-# 3. PUT /plc               - 更新PLC配置 (热更新，无需重启)
+# 3. PUT /plc               - PLC配置写入（禁用，只读）
 # 4. POST /plc/test         - 测试PLC连接
 # 5. GET /database          - 获取数据库配置
 # ============================================================
 
 from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import Optional
 
@@ -40,7 +41,7 @@ class PLCConfigUpdate(BaseModel):
     rack: Optional[int] = None
     slot: Optional[int] = None
     timeout_ms: Optional[int] = None
-    poll_interval: Optional[int] = None
+    poll_interval: Optional[float] = None
 
 
 # ------------------------------------------------------------
@@ -66,61 +67,32 @@ async def get_plc_config():
 
 
 # ------------------------------------------------------------
-# 3. PUT /plc - 更新PLC配置 (热更新)
+# 3. PUT /plc - PLC配置写入（禁用，只读）
 # ------------------------------------------------------------
-@router.put("/plc")
+@router.put(
+    "/plc",
+    summary="PLC配置写入（禁用）",
+    description="该接口已禁用。PLC配置为只读，请在后端 .env 文件中修改后重启服务使其生效。",
+    responses={
+        403: {
+            "description": "写入被拒绝：PLC配置只读",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "success": False,
+                        "error": "PLC配置为只读，请修改后端 .env 文件并重启服务后生效"
+                    }
+                }
+            }
+        }
+    },
+)
 async def update_plc_config(config: PLCConfigUpdate):
-    """更新PLC配置（热更新，无需重启）
-    
-    修改后立即生效：
-    - 更新运行时配置
-    - 重置 PLC 客户端连接
-    - 下次读取数据时使用新配置
-    """
-    global _runtime_plc_config
-    
-    updated_fields = {}
-    
-    # 更新运行时配置
-    if config.ip_address is not None:
-        _runtime_plc_config["ip_address"] = config.ip_address
-        updated_fields["ip_address"] = config.ip_address
-    
-    if config.rack is not None:
-        _runtime_plc_config["rack"] = config.rack
-        updated_fields["rack"] = config.rack
-    
-    if config.slot is not None:
-        _runtime_plc_config["slot"] = config.slot
-        updated_fields["slot"] = config.slot
-    
-    if config.timeout_ms is not None:
-        _runtime_plc_config["timeout_ms"] = config.timeout_ms
-        updated_fields["timeout_ms"] = config.timeout_ms
-    
-    if config.poll_interval is not None:
-        _runtime_plc_config["poll_interval"] = config.poll_interval
-        updated_fields["poll_interval"] = config.poll_interval
-    
-    # 重置 PLC 客户端，使新配置生效
-    if any(k in updated_fields for k in ["ip_address", "rack", "slot", "timeout_ms"]):
-        try:
-            from app.plc.s7_client import update_s7_client
-            update_s7_client(
-                ip=_runtime_plc_config["ip_address"],
-                rack=_runtime_plc_config["rack"],
-                slot=_runtime_plc_config["slot"],
-                timeout_ms=_runtime_plc_config["timeout_ms"]
-            )
-        except Exception as e:
-            # 更新失败不影响配置保存
-            pass
-    
-    return ApiResponse.ok({
-        "message": "配置更新成功（已立即生效）",
-        "updated_fields": updated_fields,
-        "current_config": get_runtime_plc_config()
-    })
+    """PLC 配置只读：拒绝写入"""
+    return JSONResponse(
+        status_code=403,
+        content=ApiResponse.fail("PLC配置为只读，请修改后端 .env 文件并重启服务后生效").model_dump(),
+    )
 
 
 # ------------------------------------------------------------
@@ -134,7 +106,7 @@ async def test_plc_connection():
         client = get_s7_client()
         if not client.is_connected():
             client.connect()
-        
+
         plc_config = get_runtime_plc_config()
         return ApiResponse.ok({
             "success": client.is_connected(),
