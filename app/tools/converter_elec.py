@@ -3,12 +3,12 @@
 # ============================================================
 # 实时数据字段: Pt, ImpEp, Ua_0, I_0, I_1, I_2 (用于API返回)
 # 存储字段: Pt, ImpEp, Ua_0, I_0, I_1, I_2 (写入数据库)
-# 
-# 🔧 2026-01-10 更新计算公式 (根据实际PLC原始数据验证):
-#   - 电压 Ua: raw × 0.1 (不乘变比)
-#   - 电流 I:  raw × 0.001 × ratio (料仓/风机=20, 辊道窑=60, SCR=2)
-#   - 功率 Pt: raw × 0.001 × ratio
-#   - 能耗 ImpEp: raw × 2 (不乘变比，直接乘2)
+#
+# 2026-03-03 修正计算公式 (与磨料车间统一):
+#   - 电压 Ua:  raw x 0.1 (不乘变比) -> V
+#   - 电流 I:   raw x 0.001 x ratio (料仓=20) -> A
+#   - 功率 Pt:  raw x 0.0001 x ratio -> kW
+#   - 能耗 ImpEp: raw x ratio -> kWh (乘变比, 不乘2)
 # ============================================================
 
 from typing import Dict, Any
@@ -21,22 +21,20 @@ class ElectricityConverter(BaseConverter):
     
     输入字段 (PLC原始 - 单精度浮点数):
         - Uab_0, Uab_1, Uab_2: 线电压 (不存储)
-        - Ua_0, Ua_1, Ua_2: 三相电压 (只存A相 Ua_0)
-        - I_0, I_1, I_2: 三相电流 (实时显示，不存储)
+        - Ua_0, Ua_1, Ua_2: 三相电压
+        - I_0, I_1, I_2: 三相电流
         - Pt: 总有功功率
         - Pa, Pb, Pc: 各相功率 (不存储)
         - ImpEp: 正向有功电能
     
-    计算公式 (2026-01-10 验证):
-        - 电压: raw × 0.1 → 实际电压 (V)
-        - 电流: raw × 0.001 × ratio → 实际电流 (A)
-        - 功率: raw × 0.001 × ratio → 实际功率 (kW)
-        - 能耗: raw × 2 → 实际能耗 (kWh)
+    计算公式 (2026-03-03 修正, 与磨料车间统一):
+        - 电压: raw x 0.1 -> V
+        - 电流: raw x 0.001 x ratio -> A
+        - 功率: raw x 0.0001 x ratio -> kW
+        - 能耗: raw x ratio -> kWh
     
     电流互感器变比:
-        - 辊道窑 (roller_kiln): ratio = 60
-        - 料仓/风机 (hopper/fan): ratio = 20
-        - SCR氨水泵 (scr): ratio = 20
+        - 料仓 (hopper): ratio = 20
     """
     
     MODULE_TYPE = "ElectricityMeter"
@@ -47,10 +45,10 @@ class ElectricityConverter(BaseConverter):
     CURRENT_RATIO_SCR = 20        # SCR氨水泵电流变比 (与料仓/风机相同)
     
     # 缩放系数
-    SCALE_VOLTAGE = 0.1           # 电压: raw × 0.1
-    SCALE_CURRENT = 0.001         # 电流: raw × 0.001 × ratio
-    SCALE_POWER = 0.001           # 功率: raw × 0.001 × ratio
-    SCALE_ENERGY = 2.0            # 能耗: raw × 2 (不乘变比)
+    SCALE_VOLTAGE = 0.1           # 电压: raw x 0.1 -> V
+    SCALE_CURRENT = 0.001         # 电流: raw x 0.001 x ratio -> A
+    SCALE_POWER = 0.0001          # 功率: raw x 0.0001 x ratio -> kW
+    SCALE_ENERGY = 2.0            # (未使用, 实际能耗公式: raw x ratio)
     
     # 存储字段 (三相电压 + 三相电流 + 功率 + 能耗)
     OUTPUT_FIELDS = {
@@ -79,13 +77,13 @@ class ElectricityConverter(BaseConverter):
                 - current_ratio: 手动指定变比 (覆盖默认值)
         
         Returns:
-            实时数据字段字典 (6个字段，包含三相电流)
+            实时数据字段字典 (8个字段)
         
         计算公式:
-            - 电压: raw × 0.1
-            - 电流: raw × 0.001 × ratio
-            - 功率: raw × 0.001 × ratio
-            - 能耗: raw × 2
+            - 电压: raw x 0.1 -> V
+            - 电流: raw x 0.001 x ratio -> A
+            - 功率: raw x 0.0001 x ratio -> kW
+            - 能耗: raw x ratio -> kWh
         """
         # 判断电流变比: 优先级 is_scr > is_roller_kiln > default
         is_scr = kwargs.get('is_scr', False)
@@ -112,10 +110,10 @@ class ElectricityConverter(BaseConverter):
             "I_1": round(self.get_field_value(raw_data, "I_1", 0.0) * self.SCALE_CURRENT * current_ratio, 2),
             "I_2": round(self.get_field_value(raw_data, "I_2", 0.0) * self.SCALE_CURRENT * current_ratio, 2),
             
-            # 总功率: raw * 0.001 * ratio
-            "Pt": round(self.get_field_value(raw_data, "Pt", 0.0) * self.SCALE_POWER * current_ratio, 2),
+            # 功率: raw x 0.0001 x ratio -> kW
+            "Pt": round(self.get_field_value(raw_data, "Pt", 0.0) * self.SCALE_POWER * current_ratio, 3),
             
-            # 能耗: raw * 2
-            "ImpEp": round(self.get_field_value(raw_data, "ImpEp", 0.0) * self.SCALE_ENERGY, 2),
+            # 能耗: raw x ratio -> kWh
+            "ImpEp": round(self.get_field_value(raw_data, "ImpEp", 0.0) * current_ratio, 2),
         }
 
