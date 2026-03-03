@@ -34,7 +34,7 @@ async def health_check():
 # 2. GET /health/plc - PLC连接状态（实时检测）
 # ------------------------------------------------------------
 @router.get("/health/plc")
-async def plc_health(probe: bool = True):
+def plc_health(probe: bool = True):
     """PLC连接状态检查
     
     Args:
@@ -73,7 +73,7 @@ async def plc_health(probe: bool = True):
 # 3. GET /health/database - 数据库连接状态
 # ------------------------------------------------------------
 @router.get("/health/database")
-async def database_health():
+def database_health():
     """数据库连接状态检查"""
     status = {
         "influxdb": {"connected": False}
@@ -119,7 +119,7 @@ async def polling_health():
 # 6. GET /health/latest-timestamp - 获取数据库中最新数据的时间戳
 # ------------------------------------------------------------
 @router.get("/health/latest-timestamp")
-async def get_latest_timestamp():
+def get_latest_timestamp():
     """获取数据库中最新数据的时间戳
     
     用于前端确定历史数据查询的时间范围。

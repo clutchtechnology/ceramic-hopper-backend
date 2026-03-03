@@ -99,7 +99,7 @@ async def update_plc_config(config: PLCConfigUpdate):
 # 4. POST /plc/test - 测试PLC连接
 # ------------------------------------------------------------
 @router.post("/plc/test")
-async def test_plc_connection():
+def test_plc_connection():
     """测试PLC连接（使用当前运行时配置）"""
     try:
         from app.plc.s7_client import get_s7_client

@@ -55,6 +55,7 @@ def query_alarms(
     end_time: Optional[datetime] = None,
     level: Optional[str] = None,
     param_name: Optional[str] = None,
+    param_names: Optional[List[str]] = None,
     limit: int = 200,
 ) -> List[Dict[str, Any]]:
     now = datetime.now(timezone.utc)
@@ -70,7 +71,16 @@ def query_alarms(
 
     effective_level = level if level else 'alarm'
     level_filter = f'  |> filter(fn: (r) => r["level"] == "{effective_level}")'
-    param_filter = f'  |> filter(fn: (r) => r["param_name"] == "{param_name}")' if param_name else ''
+
+    # 1. param_names 优先 (多参数一次查询): contains() Flux 过滤
+    # 2. 如果只有单个 param_name 则用简单等式过滤
+    if param_names and len(param_names) > 0:
+        names_flux = ', '.join(f'"{n}"' for n in param_names)
+        param_filter = f'  |> filter(fn: (r) => contains(value: r["param_name"], set: [{names_flux}]))'
+    elif param_name:
+        param_filter = f'  |> filter(fn: (r) => r["param_name"] == "{param_name}")'
+    else:
+        param_filter = ''
 
     query = f'''
 from(bucket: "{settings.influx_bucket}")

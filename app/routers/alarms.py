@@ -31,7 +31,7 @@ async def get_thresholds():
 
 
 @router.put('/thresholds')
-async def update_thresholds(body: dict):
+def update_thresholds(body: dict):
     try:
         manager = AlarmThresholdManager.get_instance()
         ok = manager.save(body)
@@ -43,11 +43,12 @@ async def update_thresholds(body: dict):
 
 
 @router.get('/records')
-async def get_alarm_records(
+def get_alarm_records(
     start: Optional[str] = Query(None),
     end: Optional[str] = Query(None),
     level: Optional[str] = Query('alarm'),
     param_name: Optional[str] = Query(None),
+    param_names: Optional[str] = Query(None),
     limit: int = Query(200, ge=1, le=1000),
 ):
     try:
@@ -58,11 +59,17 @@ async def get_alarm_records(
         if end:
             end_dt = datetime.fromisoformat(end.replace('Z', '+00:00'))
 
+        # 1. 解析逗号分隔的 param_names (多参数一次查询)
+        names_list = None
+        if param_names:
+            names_list = [n.strip() for n in param_names.split(',') if n.strip()]
+
         records = query_alarms(
             start_time=start_dt,
             end_time=end_dt,
             level=level,
             param_name=param_name,
+            param_names=names_list,
             limit=limit,
         )
         return ApiResponse.ok({'records': records, 'count': len(records)})
@@ -71,7 +78,7 @@ async def get_alarm_records(
 
 
 @router.get('/count')
-async def get_count(hours: int = Query(24, ge=1, le=168)):
+def get_count(hours: int = Query(24, ge=1, le=168)):
     try:
         counts = get_alarm_count(hours=hours)
         return ApiResponse.ok(counts)
@@ -80,7 +87,7 @@ async def get_count(hours: int = Query(24, ge=1, le=168)):
 
 
 @router.post('/report')
-async def report_alarm(request: AlarmReportRequest):
+def report_alarm(request: AlarmReportRequest):
     try:
         if request.level != 'alarm':
             return ApiResponse.fail('仅支持报警级别记录')
@@ -102,7 +109,7 @@ async def report_alarm(request: AlarmReportRequest):
 
 
 @router.get('/history')
-async def get_alarm_history(
+def get_alarm_history(
     start: Optional[str] = Query(None),
     end: Optional[str] = Query(None),
     limit: int = Query(200, ge=1, le=1000),

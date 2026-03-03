@@ -6,7 +6,7 @@
 # 精度模式 (由 .env 的 VIB_HIGH_PRECISION 控制):
 #   低精度 (false): V/D/HZ 均直接使用 PLC 原始值
 #   高精度 (true):  V = 原始值 / 100 (mm/s)
-#                   D = 原始值 (um)
+#                   D = 原始值 / 10 (um)
 #                   HZ = 原始值 / 10 (Hz)
 # ============================================================
 
@@ -63,7 +63,7 @@ class VibrationConverter(BaseConverter):
         """转换振动三组核心数据
         
         低精度: V/D/HZ 均直接使用原始值
-        高精度: V = 原始值/100, D = 原始值, HZ = 原始值/10
+        高精度: V = 原始值/100, D = 原始值/10, HZ = 原始值/10
         """
         fields: Dict[str, Any] = {}
 
@@ -79,10 +79,11 @@ class VibrationConverter(BaseConverter):
         _set("vy", "VY", "velocity", 2, v_divisor)
         _set("vz", "VZ", "velocity", 2, v_divisor)
         
-        # 2. 位移幅值 (um) - 保持原始值
-        _set("dx", "DX", "displacement", 2)
-        _set("dy", "DY", "displacement", 2)
-        _set("dz", "DZ", "displacement", 2)
+        # 2. 位移幅值 (um) - 高精度模式: /10
+        d_divisor = 10.0 if self._high_precision else 1.0
+        _set("dx", "DX", "displacement", 1, d_divisor)
+        _set("dy", "DY", "displacement", 1, d_divisor)
+        _set("dz", "DZ", "displacement", 1, d_divisor)
         
         # 3. 频率 (Hz) - 高精度模式: /10
         hz_divisor = 10.0 if self._high_precision else 1.0

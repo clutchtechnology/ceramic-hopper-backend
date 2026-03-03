@@ -62,7 +62,7 @@ async def get_all_hoppers_realtime():
 # 2. GET /api/hopper/{device_id}/history - 获取料仓历史数据（InfluxDB）
 # ============================================================
 @router.get("/{device_id}/history")
-async def get_hopper_history(
+def get_hopper_history(
     device_id: str = Path(..., description="设备ID", example="hopper_unit_4"),
     start: Optional[datetime] = Query(None, description="开始时间", example="2026-01-20T00:00:00"),
     end: Optional[datetime] = Query(None, description="结束时间", example="2026-01-20T23:59:59"),

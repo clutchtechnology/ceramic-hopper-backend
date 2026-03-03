@@ -1,12 +1,12 @@
 {
   "pm10": {
-    "warning_max": 75.0,
-    "alarm_max": 150.0,
+    "warning_max": 450.0,
+    "alarm_max": 600.0,
     "enabled": true
   },
   "temperature": {
-    "warning_max": 60.0,
-    "alarm_max": 80.0,
+    "warning_max": 100.0,
+    "alarm_max": 130.0,
     "enabled": true
   },
   "voltage_a": {
@@ -40,53 +40,53 @@
     "enabled": true
   },
   "power": {
-    "warning_max": 10.0,
-    "alarm_max": 15.0,
+    "warning_max": 30.0,
+    "alarm_max": 40.0,
     "enabled": true
   },
   "speed_x": {
-    "warning_max": 5.0,
-    "alarm_max": 10.0,
+    "warning_max": 75.0,
+    "alarm_max": 100.0,
     "enabled": true
   },
   "speed_y": {
-    "warning_max": 5.0,
-    "alarm_max": 10.0,
+    "warning_max": 75.0,
+    "alarm_max": 100.0,
     "enabled": true
   },
   "speed_z": {
-    "warning_max": 5.0,
-    "alarm_max": 10.0,
+    "warning_max": 75.0,
+    "alarm_max": 100.0,
     "enabled": true
   },
   "displacement_x": {
-    "warning_max": 300.0,
-    "alarm_max": 500.0,
+    "warning_max": 3000.0,
+    "alarm_max": 5000.0,
     "enabled": true
   },
   "displacement_y": {
-    "warning_max": 300.0,
-    "alarm_max": 500.0,
+    "warning_max": 3000.0,
+    "alarm_max": 5000.0,
     "enabled": true
   },
   "displacement_z": {
-    "warning_max": 300.0,
-    "alarm_max": 500.0,
+    "warning_max": 3000.0,
+    "alarm_max": 5000.0,
     "enabled": true
   },
   "freq_x": {
-    "warning_max": 50.0,
-    "alarm_max": 60.0,
+    "warning_max": 200.0,
+    "alarm_max": 300.0,
     "enabled": true
   },
   "freq_y": {
-    "warning_max": 50.0,
-    "alarm_max": 60.0,
+    "warning_max": 200.0,
+    "alarm_max": 300.0,
     "enabled": true
   },
   "freq_z": {
-    "warning_max": 50.0,
-    "alarm_max": 60.0,
+    "warning_max": 200.0,
+    "alarm_max": 300.0,
     "enabled": true
   }
 }

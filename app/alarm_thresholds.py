@@ -26,24 +26,24 @@ def _tc(warning: float, alarm: float) -> ThresholdConfig:
 
 @dataclass
 class AlarmThresholds:
-    pm10: ThresholdConfig = field(default_factory=lambda: _tc(75.0, 150.0))
-    temperature: ThresholdConfig = field(default_factory=lambda: _tc(60.0, 80.0))
+    pm10: ThresholdConfig = field(default_factory=lambda: _tc(450.0, 600.0))
+    temperature: ThresholdConfig = field(default_factory=lambda: _tc(100.0, 130.0))
     voltage_a: ThresholdConfig = field(default_factory=lambda: _tc(400.0, 420.0))
     voltage_b: ThresholdConfig = field(default_factory=lambda: _tc(400.0, 420.0))
     voltage_c: ThresholdConfig = field(default_factory=lambda: _tc(400.0, 420.0))
     current_a: ThresholdConfig = field(default_factory=lambda: _tc(50.0, 80.0))
     current_b: ThresholdConfig = field(default_factory=lambda: _tc(50.0, 80.0))
     current_c: ThresholdConfig = field(default_factory=lambda: _tc(50.0, 80.0))
-    power: ThresholdConfig = field(default_factory=lambda: _tc(10.0, 15.0))
-    speed_x: ThresholdConfig = field(default_factory=lambda: _tc(5.0, 10.0))
-    speed_y: ThresholdConfig = field(default_factory=lambda: _tc(5.0, 10.0))
-    speed_z: ThresholdConfig = field(default_factory=lambda: _tc(5.0, 10.0))
-    displacement_x: ThresholdConfig = field(default_factory=lambda: _tc(300.0, 500.0))
-    displacement_y: ThresholdConfig = field(default_factory=lambda: _tc(300.0, 500.0))
-    displacement_z: ThresholdConfig = field(default_factory=lambda: _tc(300.0, 500.0))
-    freq_x: ThresholdConfig = field(default_factory=lambda: _tc(50.0, 60.0))
-    freq_y: ThresholdConfig = field(default_factory=lambda: _tc(50.0, 60.0))
-    freq_z: ThresholdConfig = field(default_factory=lambda: _tc(50.0, 60.0))
+    power: ThresholdConfig = field(default_factory=lambda: _tc(30.0, 40.0))
+    speed_x: ThresholdConfig = field(default_factory=lambda: _tc(75.0, 100.0))
+    speed_y: ThresholdConfig = field(default_factory=lambda: _tc(75.0, 100.0))
+    speed_z: ThresholdConfig = field(default_factory=lambda: _tc(75.0, 100.0))
+    displacement_x: ThresholdConfig = field(default_factory=lambda: _tc(3000.0, 5000.0))
+    displacement_y: ThresholdConfig = field(default_factory=lambda: _tc(3000.0, 5000.0))
+    displacement_z: ThresholdConfig = field(default_factory=lambda: _tc(3000.0, 5000.0))
+    freq_x: ThresholdConfig = field(default_factory=lambda: _tc(200.0, 300.0))
+    freq_y: ThresholdConfig = field(default_factory=lambda: _tc(200.0, 300.0))
+    freq_z: ThresholdConfig = field(default_factory=lambda: _tc(200.0, 300.0))
 
 
 class AlarmThresholdManager:
