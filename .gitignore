@@ -60,3 +60,4 @@ influxdb_data/
 mysql_data/
 /deploy
 /backups
+*.zip

@@ -3,6 +3,7 @@
 from fastapi import APIRouter, Query, Path
 from typing import Optional
 from datetime import datetime, timedelta
+import asyncio
 
 from app.models.response import ApiResponse
 from app.services.history_query_service import get_history_service
@@ -62,7 +63,7 @@ async def get_all_hoppers_realtime():
 # 2. GET /api/hopper/{device_id}/history - 获取料仓历史数据（InfluxDB）
 # ============================================================
 @router.get("/{device_id}/history")
-def get_hopper_history(
+async def get_hopper_history(
     device_id: str = Path(..., description="设备ID", example="hopper_unit_4"),
     start: Optional[datetime] = Query(None, description="开始时间", example="2026-01-20T00:00:00"),
     end: Optional[datetime] = Query(None, description="结束时间", example="2026-01-20T23:59:59"),
@@ -95,7 +96,9 @@ def get_hopper_history(
         if module_type == "vibration" and device_id == "hopper_unit_4":
             query_device_id = "hopper_vib_6"
 
-        data = get_history_service().query_device_history(
+        # [FIX] InfluxDB 查询在线程池中执行，避免阻塞事件循环
+        data = await asyncio.to_thread(
+            get_history_service().query_device_history,
             device_id=query_device_id,
             start=start,
             end=end,

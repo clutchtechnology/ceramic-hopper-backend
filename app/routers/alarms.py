@@ -1,3 +1,4 @@
+import asyncio
 from datetime import datetime
 from typing import Optional
 
@@ -31,10 +32,10 @@ async def get_thresholds():
 
 
 @router.put('/thresholds')
-def update_thresholds(body: dict):
+async def update_thresholds(body: dict):
     try:
         manager = AlarmThresholdManager.get_instance()
-        ok = manager.save(body)
+        ok = await asyncio.to_thread(manager.save, body)
         if ok:
             return ApiResponse.ok({'updated': len(body), 'message': '阈值配置已保存'})
         return ApiResponse.fail('保存阈值配置失败')
@@ -43,7 +44,7 @@ def update_thresholds(body: dict):
 
 
 @router.get('/records')
-def get_alarm_records(
+async def get_alarm_records(
     start: Optional[str] = Query(None),
     end: Optional[str] = Query(None),
     level: Optional[str] = Query('alarm'),
@@ -64,7 +65,9 @@ def get_alarm_records(
         if param_names:
             names_list = [n.strip() for n in param_names.split(',') if n.strip()]
 
-        records = query_alarms(
+        # [FIX] InfluxDB 查询在线程池中执行
+        records = await asyncio.to_thread(
+            query_alarms,
             start_time=start_dt,
             end_time=end_dt,
             level=level,
@@ -78,21 +81,24 @@ def get_alarm_records(
 
 
 @router.get('/count')
-def get_count(hours: int = Query(24, ge=1, le=168)):
+async def get_count(hours: int = Query(24, ge=1, le=168)):
     try:
-        counts = get_alarm_count(hours=hours)
+        # [FIX] InfluxDB 查询在线程池中执行
+        counts = await asyncio.to_thread(get_alarm_count, hours=hours)
         return ApiResponse.ok(counts)
     except Exception as error:
         return ApiResponse.fail(str(error))
 
 
 @router.post('/report')
-def report_alarm(request: AlarmReportRequest):
+async def report_alarm(request: AlarmReportRequest):
     try:
         if request.level != 'alarm':
             return ApiResponse.fail('仅支持报警级别记录')
 
-        ok = log_alarm(
+        # [FIX] InfluxDB 写入在线程池中执行
+        ok = await asyncio.to_thread(
+            log_alarm,
             device_id=request.device_id,
             sensor_type=request.sensor_type,
             param_name=request.param_name or request.sensor_type,
@@ -109,7 +115,7 @@ def report_alarm(request: AlarmReportRequest):
 
 
 @router.get('/history')
-def get_alarm_history(
+async def get_alarm_history(
     start: Optional[str] = Query(None),
     end: Optional[str] = Query(None),
     limit: int = Query(200, ge=1, le=1000),
@@ -122,7 +128,8 @@ def get_alarm_history(
         if end:
             end_dt = datetime.fromisoformat(end.replace('Z', '+00:00'))
 
-        records = query_alarms(start_time=start_dt, end_time=end_dt, limit=limit)
+        # [FIX] InfluxDB 查询在线程池中执行
+        records = await asyncio.to_thread(query_alarms, start_time=start_dt, end_time=end_dt, limit=limit)
         return ApiResponse.ok({'records': records, 'count': len(records)})
     except Exception as error:
         return ApiResponse.fail(str(error))

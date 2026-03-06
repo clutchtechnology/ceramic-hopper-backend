@@ -9,6 +9,8 @@
 # 5. GET /database          - 获取数据库配置
 # ============================================================
 
+import asyncio
+
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -99,18 +101,22 @@ async def update_plc_config(config: PLCConfigUpdate):
 # 4. POST /plc/test - 测试PLC连接
 # ------------------------------------------------------------
 @router.post("/plc/test")
-def test_plc_connection():
+async def test_plc_connection():
     """测试PLC连接（使用当前运行时配置）"""
-    try:
+    # [FIX] PLC 连接测试在线程池中执行，避免阻塞事件循环
+    def _do_plc_test():
         from app.plc.s7_client import get_s7_client
         client = get_s7_client()
         if not client.is_connected():
             client.connect()
+        return client.is_connected()
 
+    try:
+        connected = await asyncio.to_thread(_do_plc_test)
         plc_config = get_runtime_plc_config()
         return ApiResponse.ok({
-            "success": client.is_connected(),
-            "message": "PLC连接成功" if client.is_connected() else "PLC连接失败",
+            "success": connected,
+            "message": "PLC连接成功" if connected else "PLC连接失败",
             "plc_ip": plc_config["ip_address"]
         })
     except Exception as e:

@@ -218,8 +218,16 @@ def _flush_buffer():
             print(f"[轮询] 写入队列已满，数据转存到本地缓存")
             _save_to_local_cache(points)
     else:
-        # 队列未初始化，使用同步写入（降级）
-        _sync_write_to_influx(points)
+        # [FIX] 队列未初始化，在线程池中执行同步写入（降级），避免阻塞事件循环
+        import concurrent.futures
+        try:
+            executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+            executor.submit(_sync_write_to_influx, points)
+            executor.shutdown(wait=False)
+            print(f"[轮询] 队列未就绪，已提交 {len(points)} 个数据点到后台线程写入")
+        except Exception as e:
+            print(f"[轮询] 降级写入提交失败: {e}，转存到本地缓存")
+            _save_to_local_cache(points)
 
 
 def _sync_write_to_influx(points: List):
@@ -243,7 +251,11 @@ def _sync_write_to_influx(points: List):
 
 
 async def _background_writer():
-    """后台写入任务 - 异步处理写入队列，不阻塞轮询和推送"""
+    """后台写入任务 - 异步处理写入队列，不阻塞轮询和推送
+    
+    [CRITICAL] 所有同步 InfluxDB 调用必须通过 asyncio.to_thread() 执行，
+    避免阻塞 asyncio 事件循环导致 WebSocket 推送停止。
+    """
     global _stats, _write_in_progress, _write_queue
     
     print("[后台写入] 任务已启动")
@@ -261,12 +273,12 @@ async def _background_writer():
             
             _write_in_progress = True
             
-            # 检查 InfluxDB 健康状态
-            healthy, msg = check_influx_health()
+            # [FIX] 使用 asyncio.to_thread() 避免阻塞事件循环
+            healthy, msg = await asyncio.to_thread(check_influx_health)
             
             if healthy:
-                # 尝试写入 InfluxDB
-                success, err = write_points_batch(points)
+                # [FIX] 使用 asyncio.to_thread() 避免阻塞事件循环
+                success, err = await asyncio.to_thread(write_points_batch, points)
                 
                 if success:
                     _stats["successful_writes"] += len(points)
@@ -331,8 +343,8 @@ async def _retry_cached_data():
     while _is_running:
         await asyncio.sleep(retry_interval)
         
-        # 检查 InfluxDB 健康状态
-        healthy, _ = check_influx_health()
+        # [FIX] 使用 asyncio.to_thread() 避免阻塞事件循环
+        healthy, _ = await asyncio.to_thread(check_influx_health)
         if not healthy:
             continue
         
@@ -365,8 +377,8 @@ async def _retry_cached_data():
         if not points:
             continue
         
-        # 批量写入
-        success, err = write_points_batch(points)
+        # [FIX] 使用 asyncio.to_thread() 避免阻塞事件循环
+        success, err = await asyncio.to_thread(write_points_batch, points)
         
         if success:
             cache.mark_success(ids)
@@ -445,18 +457,34 @@ async def _poll_data():
                 mock_data = MockService.generate_hopper_data()
                 
                 # 与真实PLC相同的处理流程: converter转换 -> 更新缓存
+                _alarm_pending = []
                 for device_id, device_data in mock_data.items():
                     all_devices.append(device_data)
-                    _update_latest_data(device_data, 4, timestamp)
+                    alarm_info = _update_latest_data(device_data, 4, timestamp)
+                    if alarm_info:
+                        _alarm_pending.append(alarm_info)
                 
                 _latest_timestamp = timestamp
                 # 通知 WS 推送新数据已就绪
                 get_data_updated_event().set()
+
+                # [FIX] 报警检查通过线程池执行，避免 InfluxDB 写入阻塞事件循环
+                for info in _alarm_pending:
+                    try:
+                        await asyncio.to_thread(
+                            check_device_alarm,
+                            device_id=info["device_id"],
+                            device_type=info["device_type"],
+                            modules_data=info["modules_data"],
+                            timestamp=info["timestamp"],
+                        )
+                    except Exception as e:
+                        print(f"[轮询] 报警检查异常: {e}")
             else:
                 # 正常模式：从PLC读取数据
                 for db_num, size in db_configs:
-                    # 使用长连接读取
-                    success, db_data, err = plc.read_db(db_num, 0, size)
+                    # [FIX] 使用 asyncio.to_thread() 避免同步 PLC 读取阻塞事件循环
+                    success, db_data, err = await asyncio.to_thread(plc.read_db, db_num, 0, size)
                     
                     if not success:
                         print(f"[轮询] DB{db_num} 读取失败: {err}")
@@ -468,13 +496,29 @@ async def _poll_data():
                         all_devices.extend(devices)
                         
                         # 更新内存缓存
+                        _alarm_pending_plc = []
                         for device in devices:
-                            _update_latest_data(device, db_num, timestamp)
+                            alarm_info = _update_latest_data(device, db_num, timestamp)
+                            if alarm_info:
+                                _alarm_pending_plc.append(alarm_info)
                 
                 # 更新时间戳
                 _latest_timestamp = timestamp
                 # 通知 WS 推送新数据已就绪
                 get_data_updated_event().set()
+
+                # [FIX] 报警检查通过线程池执行，避免 InfluxDB 写入阻塞事件循环
+                for info in _alarm_pending_plc:
+                    try:
+                        await asyncio.to_thread(
+                            check_device_alarm,
+                            device_id=info["device_id"],
+                            device_type=info["device_type"],
+                            modules_data=info["modules_data"],
+                            timestamp=info["timestamp"],
+                        )
+                    except Exception as e:
+                        print(f"[轮询] 报警检查异常: {e}")
             
             # ============================================================
             # Step 2: 将数据加入写入缓冲区
@@ -564,12 +608,14 @@ def _update_latest_data(device_data: Dict[str, Any], db_number: int, timestamp: 
             "modules": modules_data
         }
 
-    check_device_alarm(
-        device_id=device_id,
-        device_type=device_type,
-        modules_data=modules_data,
-        timestamp=timestamp,
-    )
+    # [FIX] 报警检查已移到 _poll_data() 中通过 asyncio.to_thread() 调用
+    # 避免 log_alarm() -> write_point() 同步 InfluxDB 写入阻塞事件循环
+    return {
+        "device_id": device_id,
+        "device_type": device_type,
+        "modules_data": modules_data,
+        "timestamp": timestamp,
+    }
 
 
 # ============================================================
@@ -659,7 +705,7 @@ async def start_polling():
     else:
         # 启动 PLC 长连接
         plc = get_plc_manager()
-        success, err = plc.connect()
+        success, err = await asyncio.to_thread(plc.connect)
         if success:
             print("[轮询] PLC 长连接已建立")
         else:
@@ -726,7 +772,7 @@ async def stop_polling():
     # 断开 PLC 长连接
     if not settings.mock_mode:
         plc = get_plc_manager()
-        plc.disconnect()
+        await asyncio.to_thread(plc.disconnect)
     
     print("[轮询] 轮询服务已停止")
 

@@ -8,6 +8,7 @@
 # 4. GET /health/polling    - 轮询服务状态
 # ============================================================
 
+import asyncio
 from fastapi import APIRouter
 from datetime import datetime
 
@@ -34,8 +35,10 @@ async def health_check():
 # 2. GET /health/plc - PLC连接状态（实时检测）
 # ------------------------------------------------------------
 @router.get("/health/plc")
-def plc_health(probe: bool = True):
+async def plc_health(probe: bool = True):
     """PLC连接状态检查
+    
+    [FIX] 改为 async def + asyncio.to_thread()，避免同步 PLC 调用阻塞事件循环
     
     Args:
         probe: 是否进行实时探测（默认 True）
@@ -49,7 +52,8 @@ def plc_health(probe: bool = True):
     try:
         from app.plc.plc_manager import get_plc_manager
         plc = get_plc_manager()
-        status = plc.get_status(check_realtime=probe)
+        # [FIX] 同步 snap7 调用放到线程池，不阻塞事件循环
+        status = await asyncio.to_thread(plc.get_status, check_realtime=probe)
         
         return ApiResponse.ok({
             "connected": status["connected"],
@@ -73,18 +77,22 @@ def plc_health(probe: bool = True):
 # 3. GET /health/database - 数据库连接状态
 # ------------------------------------------------------------
 @router.get("/health/database")
-def database_health():
-    """数据库连接状态检查"""
+async def database_health():
+    """数据库连接状态检查
+    
+    [FIX] 改为 async def + asyncio.to_thread()，避免同步 InfluxDB 调用阻塞事件循环
+    """
     status = {
         "influxdb": {"connected": False}
     }
     
-    # 检查InfluxDB
+    # [FIX] 检查InfluxDB - 在线程池中执行同步网络 I/O
     try:
-        from app.core.influxdb import get_influx_client
-        client = get_influx_client()
-        health = client.health()
-        status["influxdb"]["connected"] = health.status == "pass"
+        from app.core.influxdb import check_influx_health
+        healthy, msg = await asyncio.to_thread(check_influx_health)
+        status["influxdb"]["connected"] = healthy
+        if not healthy:
+            status["influxdb"]["error"] = msg
     except Exception as e:
         status["influxdb"]["error"] = str(e)
     
@@ -101,9 +109,14 @@ def database_health():
 # ------------------------------------------------------------
 @router.get("/health/polling")
 async def polling_health():
-    """轮询服务状态检查"""
+    """轮询服务状态检查
+
+    [FIX] get_polling_stats() 内部调用 plc.get_status() 会获取 _rw_lock + snap7,
+    以及 local_cache.get_stats() 涉及 SQLite 读取,
+    在线程池中执行避免阻塞事件循环
+    """
     try:
-        stats = get_polling_stats()
+        stats = await asyncio.to_thread(get_polling_stats)
         return ApiResponse.ok({
             "polling_running": is_polling_running(),
             **stats
@@ -119,8 +132,10 @@ async def polling_health():
 # 6. GET /health/latest-timestamp - 获取数据库中最新数据的时间戳
 # ------------------------------------------------------------
 @router.get("/health/latest-timestamp")
-def get_latest_timestamp():
+async def get_latest_timestamp():
     """获取数据库中最新数据的时间戳
+    
+    [FIX] 改为 async def + asyncio.to_thread()，避免同步 InfluxDB 查询阻塞事件循环
     
     用于前端确定历史数据查询的时间范围。
     返回数据库中最新写入的数据的时间戳。
@@ -132,7 +147,8 @@ def get_latest_timestamp():
     try:
         from app.services.history_query_service import get_history_service
         service = get_history_service()
-        latest_time = service.get_latest_db_timestamp()
+        # [FIX] InfluxDB 查询在线程池中执行
+        latest_time = await asyncio.to_thread(service.get_latest_db_timestamp)
         
         if latest_time:
             return ApiResponse.ok({
